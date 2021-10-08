@@ -25,4 +25,10 @@ class Child(BaseModel):
     last_name = models.CharField(max_length=50, verbose_name="Фамилия")
     first_name = models.CharField(max_length=50, verbose_name="Имя")
     patronymic = models.CharField(max_length=50, verbose_name="Отчество")
-    parent_of_child = models.ForeignKey(ParentUser, on_delete=models.CASCADE)
+    parent_of_child = models.ForeignKey(ParentUser, on_delete=models.CASCADE, verbose_name="Родитель",
+                                        related_name="children_of_parent")
+
+    class Meta:
+        verbose_name = "Ребёнок"
+        verbose_name_plural = "Дети"
+
