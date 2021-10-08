@@ -17,7 +17,7 @@ class Courses(models.Model):
     description = models.TextField(verbose_name="Описание курса")
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, verbose_name="Преподаватель")
     is_deleted = models.BooleanField(verbose_name="Удален", default=False)
-    emoji = models.CharField(max_length=255, verbose_name="Emoji", default="")
+    emoji = models.CharField(max_length=255, verbose_name="Emoji", default="😀")
 
     def __str__(self):
         return str(self.id)
