@@ -1,7 +1,7 @@
 from .models import ParentUser, Child
 from rest_framework import viewsets, permissions
 from rest_framework.views import APIView
-from .serializers import *
+from .serializers import ParentSerializer
 
 
 class ParentViewSet(viewsets.ModelViewSet):
@@ -11,3 +11,6 @@ class ParentViewSet(viewsets.ModelViewSet):
         permissions.IsAuthenticated
     ]
     serializer_class = ParentSerializer
+
+
+
