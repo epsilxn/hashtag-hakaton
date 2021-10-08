@@ -1,0 +1,124 @@
+@import 'mixins';
+@import 'variables';
+* {
+    font-family: Roboto;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+span {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+html {
+    font-size: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.back_gib {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -999;
+    img {
+        max-width: 20em;
+    }
+    @include flex_column;
+}
+
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.5em;
+    background-color: white;
+    color: $bg_violet_light;
+    box-shadow: $light_shadow;
+}
+
+body {
+    background-color: $bg_primary;
+}
+
+.violet {
+    color: $bg_violet
+}
+
+.auth {
+    @include flex_column;
+    width: 100vw;
+    height: 100vh;
+}
+
+.main_form {
+    min-width: 20em;
+    overflow: hidden;
+    position: relative;
+    @include flex_column;
+    background-color: rgba(255, 255, 255, 0.349);
+    padding: 1em;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0px 0px 20px #0000005b;
+    border-top: 1px solid $bg_violet_light;
+    border-left: 1px solid $bg_violet_light;
+    .form_body {
+        margin-top: 3.5em;
+        @include flex_column;
+        .form_input,
+        .form_button {
+            width: 100%;
+            outline: none;
+            border: none;
+            backdrop-filter: blur(3px);
+            padding: .5em;
+            border-radius: 5px;
+            margin: .5em;
+            border: 1px solid transparent;
+            transition: $transition;
+            border-top: 1px solid $bg_violet_light;
+            border-left: 1px solid $bg_violet_light;
+            background-color: rgba(255, 255, 255, 0.514);
+            color: $bg_violet;
+            text-align: center;
+            box-shadow: 4px 4px 10px #ffffff62, -4px -4px 10px #00000025;
+        }
+        .form_button {
+            width: auto;
+            background-color: $bg_violet;
+            color: white;
+            cursor: pointer;
+            &:hover {
+                color: $bg_violet;
+                border: 1px solid $bg_violet;
+                background-color: rgba(255, 255, 255, 0.247);
+                box-shadow: -4px -4px 10px #ffffff62, 4px 4px 10px #00000025;
+            }
+        }
+    }
+    .form_head {
+        top: 0;
+        color: $bg_violet;
+        position: absolute;
+        text-align: center;
+        padding: 1rem;
+        font-size: 1.2em;
+        background-color: rgba(255, 255, 255, 0.842);
+        width: 100%;
+        margin-top: 0 !important;
+    }
+    .form_message {
+        font-size: .8em;
+        color: $bg_red;
+    }
+}
