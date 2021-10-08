@@ -1,6 +1,6 @@
 from .models import Teacher, Courses
 from rest_framework import viewsets, permissions
-from rest_framework.views import APIView
+from rest_framework.response import Response
 from .serializers import *
 
 
@@ -17,7 +17,16 @@ class CoursesViewSet(viewsets.ModelViewSet):
     permission_classes = [
         permissions.AllowAny
     ]
-    serializer_class = CoursesSerializer
+    serializer_class = CoursesManySerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        """
+        Если пингуется по пути /api/course/id, то возвращаться будет с полем lessons_in_course
+        """
+        pk = int(kwargs["pk"])
+        queryset = Courses.objects.filter(id=pk)
+        serializer = CoursesSerializer(queryset, many=True)
+        return Response(serializer.data)
 
     def get_queryset(self):
         """
