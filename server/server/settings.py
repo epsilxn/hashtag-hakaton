@@ -21,6 +21,11 @@ INSTALLED_APPS = [
     'parent.apps.ParentConfig',
     'teacher.apps.TeacherConfig',
     'rest_framework',
+<<<<<<< HEAD
+=======
+    'djoser',
+    'rest_framework.authtoken'
+>>>>>>> HAK-22
 ]
 
 MIDDLEWARE = [
@@ -80,6 +85,16 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
+
+AUTH_USER_MODEL = 'parent.ParentUser'
+# AUTH_USER_MODEL = 'AbstractUser'
 
 LANGUAGE_CODE = 'ru'
 
