@@ -19,7 +19,7 @@ class Courses(models.Model):
     is_deleted = models.BooleanField(verbose_name="Удален", default=False)
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 
 class Lessons(models.Model):
