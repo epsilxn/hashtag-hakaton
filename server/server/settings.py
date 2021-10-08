@@ -21,11 +21,8 @@ INSTALLED_APPS = [
     'parent.apps.ParentConfig',
     'teacher.apps.TeacherConfig',
     'rest_framework',
-<<<<<<< HEAD
-=======
     'djoser',
     'rest_framework.authtoken'
->>>>>>> HAK-22
 ]
 
 MIDDLEWARE = [
