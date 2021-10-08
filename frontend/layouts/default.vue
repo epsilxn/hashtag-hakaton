@@ -3,7 +3,7 @@
         <Nuxt/>
         <Header/>
         <div class="back_gib">
-            <img src="images/gib.png" alt="">
+            <img src="~/static/images/gib.png" alt="">
         </div>
     </div>
 </template>
