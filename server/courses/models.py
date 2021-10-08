@@ -15,7 +15,7 @@ class Teacher(models.Model):
 class Courses(models.Model):
     name = models.CharField(max_length=255, verbose_name="Назание курса")
     description = models.TextField(verbose_name="Описание курса")
-    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name="Преподаватель")
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, verbose_name="Преподаватель")
     is_deleted = models.BooleanField(verbose_name="Удален", default=False)
 
     def __str__(self):
