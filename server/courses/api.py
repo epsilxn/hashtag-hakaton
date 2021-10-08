@@ -28,3 +28,11 @@ class CoursesViewSet(viewsets.ModelViewSet):
             return Courses.objects.all()
         else:
             return Courses.objects.filter(is_deleted=False)
+
+
+class LessonsViewSet(viewsets.ModelViewSet):
+    queryset = Lessons.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = LessonsSerializer

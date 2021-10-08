@@ -5,5 +5,6 @@ from .api import *
 router = routers.DefaultRouter()
 router.register('teacher', TeacherViewSet)
 router.register('course', CoursesViewSet)
+router.register('lesson', LessonsViewSet)
 
 urlpatterns = router.urls

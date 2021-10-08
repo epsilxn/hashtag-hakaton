@@ -20,3 +20,16 @@ class Courses(models.Model):
 
     def __str__(self):
         return self.id
+
+
+class Lessons(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название занятия")
+    description = models.TextField(verbose_name="Описание занятия")
+    date = models.DateField(verbose_name="Дата занятия")
+    time = models.TimeField(verbose_name="Время занятия")
+    information = models.TextField(verbose_name="Информация о занятии")
+    # Название у Lessons.course - lessons_in_course. BE CAREFUL!
+    course = models.ForeignKey(Courses, on_delete=models.CASCADE, verbose_name="Курс", related_name="lessons_in_course")
+
+    def __str__(self):
+        return str(f"{self.course.name} {self.id}")

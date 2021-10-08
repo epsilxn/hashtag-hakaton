@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Courses, Teacher
+from .models import *
 
 
 class CourseAdmin(admin.ModelAdmin):
@@ -12,5 +12,11 @@ class TeacherAdmin(admin.ModelAdmin):
     search_fields = ("id", )
 
 
+class LessonsAdmin(admin.ModelAdmin):
+    list_display = ("id", )
+    search_fields = ("id",)
+
+
 admin.site.register(Courses, CourseAdmin)
 admin.site.register(Teacher, TeacherAdmin)
+admin.site.register(Lessons, LessonsAdmin)
