@@ -1,14 +1,13 @@
-from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
 
 """
 /api
-    GET /course
-    GET /course/id(type int)
-    POST /course
-    DELETE /course
-    PATCH/PUT /course
+    ✓ GET /course
+    ✓ GET /course/id(type int)
+    ✓ POST /course
+    ✓ DELETE /course
+    ✓ PATCH/PUT /course
     GET /parent
     PATCH/PUT /parent
     DELETE /parent (?)
