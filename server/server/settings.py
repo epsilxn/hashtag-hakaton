@@ -20,7 +20,9 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'parent.apps.ParentConfig',
     'teacher.apps.TeacherConfig',
-    'rest_framework'
+    'rest_framework',
+    'djoser',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
@@ -36,7 +38,7 @@ MIDDLEWARE = [
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    ],
 }
 
 ROOT_URLCONF = 'server.urls'
@@ -81,7 +83,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
+
 AUTH_USER_MODEL = 'parent.ParentUser'
+# AUTH_USER_MODEL = 'AbstractUser'
 
 LANGUAGE_CODE = 'ru'
 
