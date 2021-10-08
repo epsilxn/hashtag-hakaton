@@ -83,7 +83,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
+
 AUTH_USER_MODEL = 'parent.ParentUser'
+# AUTH_USER_MODEL = 'AbstractUser'
 
 LANGUAGE_CODE = 'ru'
 
