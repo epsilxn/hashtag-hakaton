@@ -19,7 +19,6 @@ INSTALLED_APPS = [
     'courses.apps.CoursesConfig',
     'accounts.apps.AccountsConfig',
     'parent.apps.ParentConfig',
-    'teacher.apps.TeacherConfig',
     'rest_framework',
     'djoser',
     'rest_framework.authtoken',
