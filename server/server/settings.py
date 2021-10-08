@@ -16,6 +16,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'courses.apps.CoursesConfig',
+    'accounts.apps.AccountsConfig',
+    'parent.apps.ParentConfig',
+    'teacher.apps.TeacherConfig',
     'rest_framework'
 ]
 
