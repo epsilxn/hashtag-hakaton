@@ -11,7 +11,7 @@ class BaseModel(models.Model):
 
 
 class ParentUser(AbstractUser):
-    """Класс реализует модель для сущности 'родитеь' для регистрации/авторизации."""
+    """Класс реализует модель для сущности 'Родитель'."""
     patronymic = models.CharField(max_length=50, verbose_name="Отчество", blank=True)
     phone = models.CharField(max_length=15, verbose_name="Номер телефона")
 
