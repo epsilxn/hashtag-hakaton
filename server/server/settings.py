@@ -20,7 +20,9 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'parent.apps.ParentConfig',
     'teacher.apps.TeacherConfig',
-    'rest_framework'
+    'rest_framework',
+    'djoser',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [

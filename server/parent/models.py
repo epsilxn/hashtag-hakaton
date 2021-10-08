@@ -11,7 +11,7 @@ class BaseModel(models.Model):
 
 
 class ParentUser(AbstractUser):
-    """Класс реализует модель для сущности 'Родитель'."""
+    """Класс реализует модель для сущности 'Родители'."""
     patronymic = models.CharField(max_length=50, verbose_name="Отчество", blank=True)
     phone = models.CharField(max_length=15, verbose_name="Номер телефона")
 
@@ -26,3 +26,7 @@ class Child(BaseModel):
     first_name = models.CharField(max_length=50, verbose_name="Имя")
     patronymic = models.CharField(max_length=50, verbose_name="Отчество")
     parent_of_child = models.ForeignKey(ParentUser, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "Ребёнок"
+        verbose_name_plural = "Дети"
