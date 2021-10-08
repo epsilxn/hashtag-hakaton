@@ -16,6 +16,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'courses.apps.CoursesConfig',
+    'accounts.apps.AccountsConfig',
+    'parent.apps.ParentConfig',
+    'teacher.apps.TeacherConfig',
     'rest_framework'
 ]
 
@@ -77,7 +81,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'accounts.ParentUser'
+AUTH_USER_MODEL = 'parent.ParentUser'
 
 LANGUAGE_CODE = 'ru'
 
