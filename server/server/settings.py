@@ -90,7 +90,7 @@ REST_FRAMEWORK = {
     ),
 }
 
-AUTH_USER_MODEL = 'parent.ParentUser'
+AUTH_USER_MODEL = 'accounts.AdvancedUser'
 # AUTH_USER_MODEL = 'AbstractUser'
 
 LANGUAGE_CODE = 'ru'

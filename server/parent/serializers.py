@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import ParentUser, Child
+from .models import AdvancedUser, Child
 
 
 class ChildrenSerializer(serializers.ModelSerializer):
@@ -12,5 +12,5 @@ class ParentSerializer(serializers.ModelSerializer):
     children_of_parent = ChildrenSerializer(many=True)
 
     class Meta:
-        model = ParentUser
+        model = AdvancedUser
         fields = ("id", "last_name", "first_name", "patronymic", "phone", "children_of_parent")
