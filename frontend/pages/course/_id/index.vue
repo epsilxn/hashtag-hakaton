@@ -1,6 +1,34 @@
 <template>
     <div class="page_container">
-        <Modal @showModal="showModal" v-if="show_modal" :someInfo="course.children_of_courses"/>
+        <Modal @showModal="showModal" v-if="show_modal" :id="this.lessonId">
+            <table border>
+              <thead>
+                <tr>
+                  <td>id</td>
+                  <td>Имя</td>
+                  <td>Фамилия</td>
+                  <td>Посетил</td>
+                  <td>Оплатил</td>
+                  <td>Принял оплату</td>
+                  <td>Курс</td>
+                  <td>Занятие</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in course.children_of_courses">
+                  <td>{{item.id}}</td>
+                  <td>{{item.first_name}}</td>
+                  <td>{{item.last_name}}</td>
+                  <td><input type="checkbox"></td>
+                  <td><input type="checkbox"></td>
+                  <td><input type="checkbox"></td>
+                  <td>{{course.id}}</td>
+                  <td>{{lessonId}}</td>
+                </tr>
+              </tbody>
+            </table>
+          <button></button>
+        </Modal>
         <section class="course_view">
             <div class="view_header">
                 <div class="view_emoji">{{course.emoji}}</div>
@@ -19,7 +47,7 @@
             </div>
             <div class="lessons_container">
                 <div v-if="[...course.lessons_in_course].length==0" class="form_message msg">Занятия ещё не добавлены</div>
-                <Lesson @showModal="showModal"
+                <Lesson @showModal="showModal(ls.id)"
                     v-for="(ls, index) in course.lessons_in_course"
                     :key="ls.id"
                     :idx="index+1"
@@ -37,24 +65,42 @@ export default {
     data(){
         return{
             course:{},
-            show_modal: false
+            show_modal: false,
+            lessonId: 0,
+            lessons: []
         }
     },
     mounted(){
         axios.get(`http://127.0.0.1:8000/api/course/${this.$route.params.id}/`).then((resp)=>{
-            console.log(resp.data)
             this.course = resp.data[0]
-            console.log(this.course)
+            console.log( resp.data[0])
+            // console.log(this.course.lessons_in_course.length==0)
         });
+
     },
     components:{
         Lesson,
         Modal
     },
     methods:{
-        showModal(){
-            this.show_modal=!this.show_modal
-        }
+        showModal(id){
+            this.show_modal=!this.show_modal;
+            this.lessonId = id
+        },
+      createAttendance() {
+          // тут нужно в цикле реализовать логику по пингу на POST http://127.0.0.1:8000/api/att/
+        // В цикле потому, что он не сможет обработать массив
+        // for (let i = 0; i < tbody.tr.length; i++) {
+        //     axios.post("http://127.0.0.1:8000/api/att/", {
+        //         нумерация начинается с 1
+        //         child: id ребёнка (1 td),
+        //         lesson: ласт id в td,
+        //         paid_confirmed_parent: td 5,
+        //         paid_confirmed_teacher: td 6,
+        //         attendance_confirmed: td 4
+        //     })
+        // }
+      }
     }
 }
 </script>
