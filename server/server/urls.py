@@ -8,6 +8,7 @@ from django.urls import path, include
     ✓ POST /course
     ✓ DELETE /course
     ✓ PATCH/PUT /course
+    ✓ GET /course?id=teacher_id
     GET /parent
     PATCH/PUT /parent
     DELETE /parent (?)

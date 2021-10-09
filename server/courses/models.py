@@ -41,7 +41,6 @@ class Lessons(models.Model):
     information = models.TextField(verbose_name="Информация о занятии")
     # Название у Lessons.course - lessons_in_course. BE CAREFUL!
     course = models.ForeignKey(Courses, on_delete=models.CASCADE, verbose_name="Курс", related_name="lessons_in_course")
-    child = models.ForeignKey(Child, on_delete=models.CASCADE, verbose_name="Ребёнок", default=None)
 
     class Meta:
         verbose_name = "Занятие"
