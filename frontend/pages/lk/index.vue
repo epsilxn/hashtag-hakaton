@@ -1,13 +1,16 @@
 <template>
-  <div class="page_container">
-    <div class="main_page">
-      <Parent/>
+    <div class="page_container">
+        <div class="main_page">
+            <Parent/>
+            <Teacher/>
+        </div>
     </div>
-  </div>
 </template>
+
 
 <script>
 import Parent from "@/components/lk/Parent" 
+import Teacher from "@/components/lk/Teacher" 
 import axios from 'axios'
 export default {
   name: "parent",
@@ -17,7 +20,8 @@ export default {
     }
   },
   components: {
-    Parent
+    Parent,
+    Teacher
   },
   mounted() {
     axios.get("http://127.0.0.1:8000/api/parent").then((res)=>{
@@ -28,7 +32,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

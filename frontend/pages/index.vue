@@ -11,7 +11,7 @@
         На данный момент, обучение проводится по <span class='violet'>{{this.course_list.length}}</span> образовательным программам
         <Search @onInput="onInput"/>
       </div>
-<!--      <Courses :courses="courses_computed"/>-->
+      <Courses :courses="courses_computed"/>
       <div v-if="!(this.course_list.length < to_show)" @click="to_show+=2" class="nbtn">
         <div class="btn">Показать больше</div>
       </div>
