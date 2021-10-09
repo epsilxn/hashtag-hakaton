@@ -1,6 +1,9 @@
 <template>
     <div class="page_container">
-        <Modal @showModal="showModal" v-if="show_modal"/>
+        <Modal @showModal="showModal" v-if="show_modal">
+            asdasd
+        </Modal
+        >
         <section class="course_view">
             <div class="view_header">
                 <div class="view_emoji">{{course.emoji}}</div>
@@ -43,8 +46,10 @@ export default {
     mounted(){
         axios.get(`http://127.0.0.1:8000/api/course/${this.$route.params.id}/`).then((resp)=>{
             this.course = resp.data[0]
+            console.log( resp.data)
             console.log(this.course.lessons_in_course.length==0)
         });
+        
     },
     components:{
         Lesson,
