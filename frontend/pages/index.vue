@@ -8,13 +8,13 @@
           для вашего ребёнка по самым различным направлениям
         <br/>
         <br/>
-        На данный момент, обучение проводится по <span class='violet'>5</span> образовательным программам
+        На данный момент, обучение проводится по <span class='violet'>{{this.course_list.length}}</span> образовательным программам
         <Search @onInput="onInput"/>
       </div>
       <Courses :courses="courses_computed"/>
       <div v-if="!(this.course_list.length < to_show)" @click="to_show+=2" class="nbtn">
-            <div class="btn">Показать больше</div>
-        </div>
+        <div class="btn">Показать больше</div>
+      </div>
     </div>
   </div>
 </template>
@@ -44,13 +44,14 @@ export default {
   methods:{
     onInput(search){
       this.search = search
+      console.log(this.search)
     }
   },
   computed:{
     courses_computed(){
       if (this.search){
         return this.course_list.filter((el)=>{
-          if (el.name.indexOf(this.search) !== -1)
+          if (el.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1)
             return el
         })
       }

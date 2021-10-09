@@ -33,14 +33,11 @@ export default {
             course:{}
         }
     },
-    async mounted(){
-        
-        axios.get(`http://127.0.0.1:8000/api/course/${this.$route.params.id}`).then((resp)=>{
-           
+    mounted(){
+        axios.get(`http://127.0.0.1:8000/api/course/${this.$route.params.id}/`).then((resp)=>{
             this.course = resp.data[0]
             console.log(this.course.lessons_in_course.length==0)
         });
-
     },
     components:{
         Lesson
