@@ -38,7 +38,6 @@ class CoursesViewSet(viewsets.ModelViewSet):
         Если пингуется по пути /api/course/id, то возвращаться будет с полем lessons_in_course
         """
         pk = int(kwargs["pk"])
-        print(pk)
         queryset = Courses.objects.filter(id=pk)
         serializer = CoursesSerializer(queryset, many=True)
         return Response(serializer.data)
@@ -48,10 +47,14 @@ class CoursesViewSet(viewsets.ModelViewSet):
         Переопределяется для того, чтобы при попытке сделать PUT/DELETE не выкидывало 404
         :return:
         """
+        # print(self.request.query_params["name"])
         if self.request.method == "PUT" or self.request.method == "DELETE":
             return Courses.objects.all()
         else:
-            return Courses.objects.filter(is_deleted=False)
+            try:
+                return Courses.objects.filter(is_deleted=False, teacher_id=int(self.request.query_params["id"]))
+            except Exception as e:
+                return Courses.objects.filter(is_deleted=False)
 
 
 class LessonsViewSet(viewsets.ModelViewSet):
