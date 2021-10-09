@@ -1,8 +1,14 @@
 from rest_framework import serializers
 from .models import *
 from accounts.models import AdvancedUser
-from parent.serializers import ChildrenSerializer
 from djoser.conf import settings
+
+
+class ChildrenSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Child
+        exclude = ["parent_of_child", "courses"]
 
 
 class TeacherSerializer(serializers.ModelSerializer):
@@ -19,7 +25,30 @@ class TeacherSerializer(serializers.ModelSerializer):
                    "date_joined", "last_login", "groups", "user_permissions"]
 
 
+class AttendanceListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Attendance
+        fields = "__all__"
+
+
+class AttendanceChildListSerializer(serializers.ModelSerializer):
+    """Расписание по ID ребёнка"""
+
+    class Meta:
+        model = Attendance
+        exclude = ["child"]
+
+
+class AttendanceLessonListSerializer(serializers.ModelSerializer):
+    """Посещение по занятиям"""
+    class Meta:
+        model = Attendance
+        exclude = ["lesson"]
+
+
 class LessonsSerializer(serializers.ModelSerializer):
+    attendance_lessons = AttendanceLessonListSerializer(many=True)
 
     class Meta:
         model = Lessons
@@ -28,6 +57,7 @@ class LessonsSerializer(serializers.ModelSerializer):
 
 class CoursesSerializer(serializers.ModelSerializer):
     lessons_in_course = LessonsSerializer(many=True)
+    children_of_courses = ChildrenSerializer(many=True)
 
     class Meta:
         model = Courses
@@ -67,20 +97,3 @@ class CoursesManySerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = Lessons
 #         fields = "__all__"
-
-
-class ScheduleListSerializer(serializers.ModelSerializer):
-    """Расписание по ID ребёнка"""
-    schedule_lessons = LessonsSerializer(many=True)
-    schedule_child = ChildrenSerializer(many=True)
-
-    class Meta:
-        model = Attendance
-        fields = "__all__"
-
-
-class AttendanceListSerializer(serializers.ModelSerializer):
-    """comm"""
-    class Meta:
-        model = Attendance
-        fields = "__all__"
