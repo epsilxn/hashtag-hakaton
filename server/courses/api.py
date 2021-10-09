@@ -48,21 +48,3 @@ class LessonsViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = LessonsSerializer
-
-
-class ScheduleViewSet(viewsets.ModelViewSet):
-    """Расписание по ID ребёнка."""
-    queryset = Attendance.objects.all()
-    permission_classes = [
-        permissions.AllowAny
-    ]
-    serializer_class = AttendanceListSerializer
-
-    def retrieve(self, request, *args, **kwargs):
-        """"""
-        pk = int(self.kwargs["pk"])
-        print(pk)
-        queryset = Attendance.objects.filter(child__id=pk)
-        # queryset = Courses.objects.filter(id=pk)
-        serializer = ScheduleListSerializer(queryset, many=True)
-        return Response(serializer.data)
