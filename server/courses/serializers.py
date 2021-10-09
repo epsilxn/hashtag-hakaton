@@ -49,6 +49,7 @@ class CoursesManySerializer(serializers.ModelSerializer):
 #         model = Lessons
 #         fields = "__all__"
 
+
 class ScheduleListSerializer(serializers.ModelSerializer):
     """Расписание по ID ребёнка"""
     schedule_lessons = LessonsSerializer(many=True)
