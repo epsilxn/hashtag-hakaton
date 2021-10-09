@@ -1,6 +1,4 @@
 from django.contrib import admin
-from .models import ParentUser, Child
+from .models import Child
 
-
-admin.site.register(ParentUser)
 admin.site.register(Child)

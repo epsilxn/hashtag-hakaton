@@ -1,11 +1,12 @@
-from .models import Teacher, Courses
 from rest_framework import viewsets, permissions
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from .serializers import *
+from accounts.models import AdvancedUser
 
 
 class TeacherViewSet(viewsets.ModelViewSet):
-    queryset = Teacher.objects.all()
+    queryset = AdvancedUser.objects.filter(is_staff=True)
     permission_classes = [
         permissions.AllowAny
     ]

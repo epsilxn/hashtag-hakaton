@@ -19,7 +19,6 @@ INSTALLED_APPS = [
     'courses.apps.CoursesConfig',
     'accounts.apps.AccountsConfig',
     'parent.apps.ParentConfig',
-    'teacher.apps.TeacherConfig',
     'rest_framework',
     'djoser',
     'rest_framework.authtoken',
@@ -93,7 +92,7 @@ REST_FRAMEWORK = {
     ),
 }
 
-AUTH_USER_MODEL = 'parent.ParentUser'
+AUTH_USER_MODEL = 'accounts.AdvancedUser'
 # AUTH_USER_MODEL = 'AbstractUser'
 
 LANGUAGE_CODE = 'ru'
