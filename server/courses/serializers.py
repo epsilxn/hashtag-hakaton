@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import *
 from accounts.models import AdvancedUser
+from parent.serializers import ChildrenSerializer
 
 
 class TeacherSerializer(serializers.ModelSerializer):
@@ -42,8 +43,24 @@ class CoursesManySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+# class ScheduleListSerializer(serializers.ModelSerializer):
+#     """Расписание"""
+#     class Meta:
+#         model = Lessons
+#         fields = "__all__"
+
 class ScheduleListSerializer(serializers.ModelSerializer):
+    """Расписание по ID ребёнка"""
+    schedule_lessons = LessonsSerializer(many=True)
+    schedule_child = ChildrenSerializer(many=True)
 
     class Meta:
-        model = Lessons
+        model = Attendance
+        fields = "__all__"
+
+
+class AttendanceListSerializer(serializers.ModelSerializer):
+    """comm"""
+    class Meta:
+        model = Attendance
         fields = "__all__"

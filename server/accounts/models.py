@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 
 class AdvancedUser(AbstractUser):
     """Класс реализует модель для сущности 'Пользователь'."""
-    patronymic = models.CharField(max_length=50, verbose_name="Отчество", blank=True)
+    patronymic = models.CharField(max_length=50, verbose_name="Отчество")
     phone = models.CharField(max_length=15, verbose_name="Номер телефона", blank=True)
 
     class Meta(AbstractUser.Meta):
