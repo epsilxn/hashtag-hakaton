@@ -48,3 +48,11 @@ class LessonsViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = LessonsSerializer
+
+
+class AttendanceViewSet(viewsets.ModelViewSet):
+    queryset = Attendance.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = AttendanceListSerializer

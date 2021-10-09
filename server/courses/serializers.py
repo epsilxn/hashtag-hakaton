@@ -25,6 +25,13 @@ class TeacherSerializer(serializers.ModelSerializer):
                    "date_joined", "last_login", "groups", "user_permissions"]
 
 
+class AttendanceListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Attendance
+        fields = "__all__"
+
+
 class AttendanceChildListSerializer(serializers.ModelSerializer):
     """Расписание по ID ребёнка"""
 
