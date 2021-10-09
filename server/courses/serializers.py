@@ -2,14 +2,19 @@ from rest_framework import serializers
 from .models import *
 from accounts.models import AdvancedUser
 from parent.serializers import ChildrenSerializer
+from djoser.conf import settings
 
 
 class TeacherSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AdvancedUser
-        exclude = ["password", "is_superuser", "is_staff", "is_active",
-                   "date_joined", "last_login", "groups", "user_permissions"]
+        fields = tuple(AdvancedUser.REQUIRED_FIELDS) + (
+            settings.USER_ID_FIELD,
+            settings.LOGIN_FIELD,
+        )
+        # exclude = ["password", "is_superuser", "is_staff", "is_active",
+        #            "date_joined", "last_login", "groups", "user_permissions"]
 
 
 class LessonsSerializer(serializers.ModelSerializer):

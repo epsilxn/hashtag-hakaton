@@ -20,3 +20,4 @@ class LessonsAdmin(admin.ModelAdmin):
 admin.site.register(Courses, CourseAdmin)
 # admin.site.register(Teacher, TeacherAdmin)
 admin.site.register(Lessons, LessonsAdmin)
+admin.site.register(Attendance)

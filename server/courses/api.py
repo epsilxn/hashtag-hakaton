@@ -75,8 +75,9 @@ class ScheduleViewSet(viewsets.ModelViewSet):
 
     def retrieve(self, request, *args, **kwargs):
         """"""
-        pk = int(kwargs["pk"])
-        self.queryset = self.queryset.objects.filter(child=pk)
+        pk = int(self.kwargs["pk"])
+        print(pk)
+        queryset = Attendance.objects.filter(child__id=pk)
         # queryset = Courses.objects.filter(id=pk)
-        serializer = ScheduleListSerializer(self.queryset, many=True)
+        serializer = ScheduleListSerializer(queryset, many=True)
         return Response(serializer.data)
