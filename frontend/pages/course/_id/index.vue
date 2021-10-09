@@ -2,7 +2,7 @@
     <div class="page_container">
         <section class="course_view">
             <div class="view_header">
-                <div class="view_emoji">😀</div>
+                <div class="view_emoji">{{course.emoji}}</div>
                 <div class="text_container">
                     <div class="container_header">{{course.name}}</div>
                     <div class="container_info">{{course.description}}</div>
