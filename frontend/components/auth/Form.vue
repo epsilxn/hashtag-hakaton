@@ -5,12 +5,20 @@
         <div class="form_body">
             <div v-if="message" class="form_message">{{message}}</div>
             <input 
+                v-if="!login"
                 placeholder="Введите почту" 
                 class="form_input" 
                 type="email" 
                 name="email" 
                 id="email"
                 v-model="user.email"/>
+            <input 
+                placeholder="Введите Логин" 
+                class="form_input" 
+                type="text" 
+                name="login" 
+                id="login"
+                v-model="user.login"/>
             <input placeholder="Ваш пароль"  
                 class="form_input" 
                 type="password" 
@@ -67,6 +75,7 @@ export default {
         return{
             user:{
                 email:'',
+                login:'',
                 password:'',
                 fio: '',
                 photo:'',

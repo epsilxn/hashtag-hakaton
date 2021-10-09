@@ -13,5 +13,4 @@ class ParentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AdvancedUser
-        fields = ("id", "last_name", "first_name", "patronymic", "phone", "children_of_parent")
-
+        fields = ("id", "last_name", "first_name", "patronymic", "phone", "children_of_parent", "is_staff")

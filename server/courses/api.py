@@ -11,20 +11,6 @@ class TeacherViewSet(viewsets.ModelViewSet):
     ]
     serializer_class = TeacherSerializer
 
-    # def get_queryset(self):
-    #     try:
-    #         teacher_id = int(self.kwargs["pk"])
-    #         teacher = AdvancedUser.objects.filter(id=teacher_id, is_staff=True)
-    #         result = TeacherOneSerializer(teacher, many=True)
-    #         return result
-    #     except Exception as e:
-    #         print(e)
-    #         return AdvancedUser.objects.filter(is_staff=True)
-
-
-class CourseForTeacherViewSet(viewsets.ModelViewSet):
-    ...
-
 
 class CoursesViewSet(viewsets.ModelViewSet):
     queryset = Courses.objects.all()
@@ -47,7 +33,6 @@ class CoursesViewSet(viewsets.ModelViewSet):
         Переопределяется для того, чтобы при попытке сделать PUT/DELETE не выкидывало 404
         :return:
         """
-        # print(self.request.query_params["name"])
         if self.request.method == "PUT" or self.request.method == "DELETE":
             return Courses.objects.all()
         else:
