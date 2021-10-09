@@ -7,6 +7,81 @@
     margin: 0;
 }
 
+button,
+input,
+optgroup,
+select,
+textarea {
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: transparent;
+    font: inherit;
+    /* По дефолту, шрифтовые свойства, для этих элементов не наследуются */
+    color: inherit;
+    letter-spacing: inherit;
+}
+
+button,
+input {
+    overflow: visible;
+}
+
+button,
+select {
+    text-align: left;
+    text-transform: none;
+}
+
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+
+textarea {
+    resize: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+button::-moz-focus-inner,
+[type='button']::-moz-focus-inner,
+[type='reset']::-moz-focus-inner,
+[type='submit']::-moz-focus-inner {
+    border: none;
+    padding: 0;
+}
+
+button:-moz-focusring,
+[type='button']:-moz-focusring,
+[type='reset']:-moz-focusring,
+[type='submit']:-moz-focusring {
+    outline: none;
+}
+
+[type='number']::-webkit-inner-spin-button,
+[type='number']::-webkit-outer-spin-button {
+    height: auto;
+}
+
+[type='search']::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+[type='search'] {
+    outline: none;
+}
+
+::-webkit-file-upload-button {
+    -webkit-appearance: button;
+    font: inherit;
+}
+
 span {
     padding: 0 !important;
     margin: 0 !important;
@@ -18,7 +93,6 @@ html {
 
 a {
     text-decoration: none;
-    color: black;
 }
 
 .back_gib {
@@ -48,6 +122,7 @@ a {
 
 body {
     background-color: $bg_primary;
+    overflow-x: hidden;
 }
 
 .violet {
@@ -102,7 +177,7 @@ body {
                 color: $bg_violet;
                 border: 1px solid $bg_violet;
                 background-color: rgba(255, 255, 255, 0.247);
-                box-shadow: -4px -4px 10px #ffffff62, 4px 4px 10px #00000025;
+                box-shadow: $neo_shad;
             }
         }
     }
@@ -117,10 +192,15 @@ body {
         width: 100%;
         margin-top: 0 !important;
     }
-    .form_message {
-        font-size: .8em;
-        color: $bg_red;
-    }
+}
+
+.form_message {
+    font-size: .8em;
+    color: $bg_red;
+}
+
+.msg {
+    margin: 2em;
 }
 
 .input__wrapper {
@@ -205,5 +285,240 @@ body {
     &:hover {
         transform: scale(1.02);
         color: $bg_violet_dark
+    }
+}
+
+.auth_msg {
+    font-size: .8em;
+    &:hover {
+        text-decoration: underline;
+    }
+    color: $bg_violet;
+}
+
+.page_container {
+    @include flex_column;
+}
+
+.main_page {
+    @include flex_column;
+    margin-top: 3rem;
+    font-size: 1.3em;
+    align-items: center;
+    color: #262626;
+    background-color: rgba(255, 255, 255, 0.548);
+    text-shadow: 1px 1px 2px rgba(63, 63, 63, 0.589), -1px -1px 2px rgba(255, 255, 255, 1);
+    width: 80%;
+    padding: 1em;
+    justify-content: center;
+}
+
+.search_wrapper {
+    width: 80%;
+    @include center;
+    display: flex;
+    margin: 1em;
+    margin-left: 10%;
+    input {
+        width: 100%;
+        border: 2;
+        background-color: $bg_primary_op;
+        backdrop-filter: blur(4px);
+        padding: .2em;
+        border-top: 1px solid $bg_violet_dark_op;
+        border-left: 1px solid $bg_violet_dark_op;
+        border-radius: 10px;
+        outline: none;
+        color: $bg_violet_dark
+    }
+    button {
+        background-color: $bg_violet;
+        padding: .2rem;
+        margin-left: -1rem;
+        border-radius: 0px 10px 10px 0px;
+        z-index: 2;
+        @include flex;
+        span {
+            font-size: 40px;
+        }
+    }
+}
+
+.courses {
+    @include flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    overflow: hidden;
+    font-size: .8em;
+    .course_item {
+        position: relative;
+        overflow: hidden;
+        @include flex_column;
+        background-color: $bg_primary_op;
+        box-shadow: -4px -4px 10px #ffffffd0, 4px 4px 10px #00000025;
+        border-radius: 10px;
+        margin: 1em;
+        padding: .5em;
+        text-overflow: ellipsis;
+        max-width: 40%;
+        min-width: 500px;
+        backdrop-filter: blur(5px);
+        transition: $transition;
+        &:hover {
+            box-shadow: 4px 4px 10px #ffffffd0, -4px -4px 10px #00000025;
+            transform: scale(1.05);
+        }
+        .course_title {
+            margin: 1em;
+            color: $bg_violet;
+        }
+        .course_description {
+            max-height: 4em;
+            z-index: -3;
+            text-overflow: ellipsis;
+        }
+        .course_emoji {
+            font-size: 3em;
+            margin: 1rem
+        }
+    }
+}
+
+.course_button:hover {
+    bottom: 0;
+}
+
+.course_item:hover .course_button {
+    bottom: 0;
+}
+
+.course_button {
+    z-index: 1000;
+    transition: $transition;
+    position: absolute;
+    bottom: -35%;
+    width: 100%;
+    @include flex_column;
+    height: 35%;
+    background-color: rgba(255, 255, 255, 0.664);
+    backdrop-filter: blur(5px);
+    .btn {
+        width: auto;
+        transition: $transition;
+        background-color: $bg_violet;
+        color: white;
+        padding: .2em;
+        border-radius: 5px;
+        cursor: pointer;
+        &:hover {
+            color: $bg_violet;
+            border: 1px solid $bg_violet;
+            background-color: rgba(255, 255, 255, 0.247);
+            box-shadow: -4px -4px 10px #ffffff62, 4px 4px 10px #00000025;
+        }
+    }
+}
+
+.nbtn {
+    .btn {
+        width: auto;
+        transition: $transition;
+        background-color: $bg_violet;
+        color: white;
+        padding: .2em;
+        border-radius: 5px;
+        text-shadow: none;
+        cursor: pointer;
+        &:hover {
+            color: $bg_violet;
+            border: 1px solid $bg_violet;
+            background-color: rgba(255, 255, 255, 0.247);
+            box-shadow: -4px -4px 10px #ffffff62, 4px 4px 10px #00000025;
+        }
+    }
+}
+
+.course_view {
+    @include flex_column;
+    margin-top: 3rem;
+    font-size: 1.3em;
+    align-items: center;
+    color: #262626;
+    background-color: rgba(255, 255, 255, 0.548);
+    text-shadow: 1px 1px 2px rgba(63, 63, 63, 0.589), -1px -1px 2px rgba(255, 255, 255, 1);
+    width: 80%;
+    padding: 1em;
+    justify-content: center;
+    .view_header {
+        width: 95%;
+        margin: 1em;
+        @include flex;
+        backdrop-filter: blur(4px);
+        background-color: rgba(255, 255, 255, 0.616);
+        font-size: 1.2em;
+        padding: .5em;
+        border-radius: 10px;
+        border-bottom: 1px solid $bg_violet_dark;
+        .view_emoji {
+            font-size: 4em;
+        }
+        .text_container {
+            @include flex_column;
+            .container_info {
+                font-size: .8em;
+                margin: 1em;
+            }
+        }
+        .container_header {
+            color: $bg_violet;
+        }
+    }
+}
+
+.lessons_container {
+    @include flex_column;
+    width: 90%;
+}
+
+.lesson {
+    position: relative;
+    margin: 1em;
+    width: 100%;
+    border-radius: 5px;
+    border-bottom: 1px solid $bg_violet_light;
+    border-left: 1px solid $bg_violet_light;
+    height: 5em;
+    backdrop-filter: blur(4px);
+    box-shadow: $neo_shad;
+    background-color: rgba(255, 255, 255, 0.616);
+    @include flex;
+    justify-content: start;
+    padding: 1em;
+    .lesson_count {
+        border-radius: 50%;
+        background-color: $bg_violet_dark_op;
+        padding: .5em .8em;
+        box-shadow: $neo_shad;
+        font-size: 2em;
+    }
+    .lesson_more {
+        @include flex_column;
+        margin-left: 2em;
+        width: 80%;
+        .more_name {
+            color: $bg_violet;
+        }
+    }
+    .more_time {
+        position: absolute;
+        bottom: 1em;
+        display: flex;
+        right: 1em;
+        font-size: .5em;
+    }
+    transition: $transition;
+    &:hover {
+        box-shadow: $neo_shad_i;
+        transform: scale(1.02);
     }
 }

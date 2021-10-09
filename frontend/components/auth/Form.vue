@@ -55,6 +55,8 @@
             
             <button v-if="login" class="form_button">Войти</button>
             <button v-else class="form_button">Сохранить</button>
+            <nuxt-link class="auth_msg" v-if="login" to="/auth/reg">Регистрация</nuxt-link>
+            <nuxt-link class="auth_msg" v-else to="/auth" >Уже есть аккаунт?</nuxt-link>
         </div>
     </form>
 </template>

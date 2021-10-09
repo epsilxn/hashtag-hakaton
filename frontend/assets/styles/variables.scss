@@ -1,7 +1,13 @@
 $bg_primary: #ebecff;
+$bg_primary_op: #ebecffc9;
 $bg_violet: #704aff;
 $bg_red: rgba(255, 91, 91, 0.897);
 $bg_violet_dark: #15303f;
 $bg_violet_light: #b1b4f8;
+$bg_violet_dark_op: #714aff88;
 $light_shadow: 0px 4px 11px 1px rgba(34, 60, 80, 0.2);
-$transition: all .2s ease-in;
+$transition: all .15s ease-in;
+$neo_shad: -4px -4px 10px #ffffff62,
+4px 4px 10px #00000025;
+$neo_shad_i: 4px 4px 10px #ffffff62,
+-4px -4px 10px #00000025;

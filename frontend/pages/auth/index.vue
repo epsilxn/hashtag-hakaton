@@ -4,7 +4,6 @@
             @onSubmit="onSubmit"
             :login="true"
             :message="message"/>
-        
     </section>
 </template>
 
