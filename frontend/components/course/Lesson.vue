@@ -14,7 +14,6 @@
         <div class="more_time">
             <div class="time">
                 {{lesson.time.slice(0, -3) }} &nbsp;
-
             </div>
             <div class="date">
                  {{lesson.date}}
