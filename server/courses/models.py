@@ -27,7 +27,8 @@ class Lessons(models.Model):
     time = models.TimeField(verbose_name="Время занятия")
     information = models.TextField(verbose_name="Информация о занятии")
     # Название у Lessons.course - lessons_in_course. BE CAREFUL!
-    course = models.ForeignKey(Courses, on_delete=models.CASCADE, verbose_name="Курс", related_name="lessons_in_course")
+    course = models.ForeignKey(Courses, on_delete=models.CASCADE, verbose_name="Курс",
+                               related_name="lessons_in_course")
 
     class Meta:
         verbose_name = "Занятие"
@@ -43,7 +44,12 @@ class Attendance(models.Model):
                                                 verbose_name="Родитель подтвердил оплату")
     paid_confirmed_teacher = models.BooleanField(default=False, blank=True,
                                                  verbose_name="Преподаватель подтвердил оплату")
-    lesson = models.ForeignKey(Lessons, on_delete=models.CASCADE, verbose_name="Занятие")
+    attendance_confirmed = models.BooleanField(default=False, blank=True,
+                                               verbose_name="Преподаватель подтвердил посещение занятия")
+    lesson = models.ForeignKey(Lessons, on_delete=models.CASCADE, verbose_name="Занятие",
+                               related_name="schedule_lessons")
+    child = models.ForeignKey(Child, on_delete=models.CASCADE, verbose_name="Ребёнок", default=None,
+                              related_name="schedule_child")
 
     class Meta:
         verbose_name = "Посещаемость ученика"
