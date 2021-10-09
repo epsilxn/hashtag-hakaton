@@ -15,7 +15,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in course.children_of_courses">
+                <tr v-for="item in course.children_of_courses" :key="item.id">
                   <td>{{item.id}}</td>
                   <td>{{item.first_name}}</td>
                   <td>{{item.last_name}}</td>

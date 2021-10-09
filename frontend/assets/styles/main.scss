@@ -656,6 +656,7 @@ body {
     height: 100vh;
     z-index: 1000000;
     top: 0;
+    left: 0;
     @include flex_column;
     background-color: rgba(0, 0, 0, 0.103);
     .modal_wrapper {

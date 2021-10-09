@@ -51,11 +51,7 @@ export default {
           }
           to_push.push(to_push_inside)
         }
-        
-        console.log(to_push)
-        
-
-
+        this.ids2 = to_push
       })
       
     }
