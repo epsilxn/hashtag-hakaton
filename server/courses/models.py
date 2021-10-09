@@ -24,6 +24,7 @@ class Courses(models.Model):
                                 verbose_name="Преподаватель", related_name="teacher_course")
     is_deleted = models.BooleanField(verbose_name="Удален", default=False)
     emoji = models.CharField(max_length=255, verbose_name="Emoji", default="😀")
+    number_of_hours = models.IntegerField(verbose_name="Количество часов", default=10)
 
     class Meta:
         verbose_name = "Курс"
