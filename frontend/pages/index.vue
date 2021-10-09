@@ -48,19 +48,11 @@ export default {
       console.log(this.search)
     }
   },
-<<<<<<< HEAD
   computed:{
     courses_computed(){
       if (this.search){
         return this.course_list.filter((el)=>{
           if (el.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1)
-=======
-  computed: {
-    courses_computed() {
-      if (this.search) {
-        return this.course_list.filter((el) => {
-          if (el.name.indexOf(this.search) !== -1)
->>>>>>> 8748d3f05c57c384c33dba577fb7d9bdd099b60a
             return el
         })
       }
