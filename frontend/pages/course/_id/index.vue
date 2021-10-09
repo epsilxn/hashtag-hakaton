@@ -1,6 +1,6 @@
 <template>
     <div class="page_container">
-        <Modal @showModal="showModal" v-if="show_modal"/>
+        <Modal @showModal="showModal" v-if="show_modal" :someInfo="course.children_of_courses"/>
         <section class="course_view">
             <div class="view_header">
                 <div class="view_emoji">{{course.emoji}}</div>
@@ -19,10 +19,10 @@
             </div>
             <div class="lessons_container">
                 <div v-if="[...course.lessons_in_course].length==0" class="form_message msg">Занятия ещё не добавлены</div>
-                <Lesson @showModal="showModal" 
-                    v-for="(ls, index) in course.lessons_in_course" 
-                    :key="ls.id" 
-                    :idx="index+1" 
+                <Lesson @showModal="showModal"
+                    v-for="(ls, index) in course.lessons_in_course"
+                    :key="ls.id"
+                    :idx="index+1"
                     :lesson="ls"/>
             </div>
         </section>
@@ -42,8 +42,9 @@ export default {
     },
     mounted(){
         axios.get(`http://127.0.0.1:8000/api/course/${this.$route.params.id}/`).then((resp)=>{
+            console.log(resp.data)
             this.course = resp.data[0]
-            console.log(this.course.lessons_in_course.length==0)
+            console.log(this.course)
         });
     },
     components:{

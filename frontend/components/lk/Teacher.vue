@@ -8,30 +8,9 @@
             Информация обо мне
           </div>
           <div class="card-body">
-            <div class="flex flex-column mb-1">
-              <p>ID</p>
-              <p v-text="teacher.id" />
-            </div>
-            <div class="flex flex-column mb-1">
-              <p>Почта</p>
-              <p v-text="teacher.email"/>
-            </div>
-            <div class="flex flex-column mb-1">
-              <p>Фамилия</p>
-              <p v-text="teacher.last_name"/>
-            </div>
-            <div class="flex flex-column mb-1">
-              <p>Имя</p>
-              <p v-text="teacher.first_name"/>
-            </div >
-            <div class="flex flex-column mb-1">
-              <p>Отчество</p>
-              <p v-text="teacher.patronymic"/>
-            </div>
-            <div class="flex flex-column mb-1">
-              <p>Телефон</p>
-              <p v-text="teacher.phone"/>
-            </div>
+            <p>{{teacher.last_name}} {{teacher.first_name}} {{teacher.patronymic}}, id: {{teacher.id}}</p>
+            <p>{{teacher.email}}</p>
+            <p>{{teacher.phone || "8 800 555 35 35"}}</p>
           </div>
         </div>
         <div></div>
@@ -39,13 +18,15 @@
 
       <div class="flex-column m-1 p-1 w-50">
         <div class="card">
-          <div class="card-header">
-            Мои курсы
+          <div class="card-header flex flex-row justify-space-between">
+            <p>Мои курсы</p>
+            <button>+</button>
           </div>
           <div class="card-body">
-            <div v-for="item in course">
-              <div v-text="item.name" />
+            <div v-for="item in course" :key="item.id">
+              <div>{{item.name}}</div>
               <nuxt-link :to="'/course/'+item.id">Страница курса</nuxt-link>
+              <button>Удалить</button>
             </div>
           </div>
         </div>
@@ -67,16 +48,25 @@ export default {
   async mounted() {
     // Заменить на динамику, всё работает
     let teacher = await (await fetch("http://127.0.0.1:8000/api/teacher/1/")).json();
-    let course = await (await fetch(`http://127.0.0.1:8000/api/course?id=${teacher.id}`)).json();
+    let course = await (await fetch(`http://127.0.0.1:8000/api/course?id=2`)).json();
     console.log(course);
     console.log(teacher);
     this.course = course;
     this.teacher = teacher;
+  },
+  methods: {
+    deleteCourse() {
+
+    }
   }
 }
 </script>
 
 <style scoped>
+button {
+  padding: 0.125rem;
+  border: 1px solid black;
+}
 .w-50 {
   width: 50% !important;
 }
