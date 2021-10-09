@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import Parent from "@/components/lk/Parent" 
+import Parent from "@/components/lk/Parent"
 export default {
   name: "parent",
   data() {
@@ -39,9 +39,9 @@ export default {
     Parent
   },
   async mounted() {
-  //let data = await fetch("http://127.0.0.1:8000/api/parent");
-  //let res = await data.json();
-  //console.log(res)
+  let data = await fetch("http://127.0.0.1:8000/api/parent");
+  let res = await data.json();
+  console.log(res)
   }
 }
 </script>
