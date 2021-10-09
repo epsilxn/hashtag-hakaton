@@ -22,19 +22,43 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: "Parent",
   data() {
     return {
-      parent: ""
+      parent: "",
+      ids:[],
+      ids2:[]
     }
   },
-    async mounted() {
+    mounted() {
     // Заменить на динамику, всё работает
-    let parent = await (await fetch("http://127.0.0.1:8000/api/parent/2/")).json()
-    console.log(parent)
-    this.parent = parent
-  }
+      axios.get("http://127.0.0.1:8000/api/parent/2/").then((resp)=>{
+        this.parent = resp.data
+        
+        for (let item of resp.data.children_of_parent){
+          this.ids.push(item.courses)
+        }
+        console.log(this.ids)
+        let to_push = []
+        for (let i = 0; i < this.ids.length; i++){
+          let to_push_inside = []
+          for(let j=0; j < this.ids[i].length; j++){
+            axios.get(`http://127.0.0.1:8000/api/course/${this.ids[i][j]}`).then((res)=>{
+              to_push_inside.push(res.data[0].name)
+            })
+          }
+          to_push.push(to_push_inside)
+        }
+        
+        console.log(to_push)
+        
+
+
+      })
+      
+    }
 }
 </script>
 
