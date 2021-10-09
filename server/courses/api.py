@@ -23,7 +23,7 @@ class CoursesViewSet(viewsets.ModelViewSet):
         """
         Если пингуется по пути /api/course/id, то возвращаться будет с полем lessons_in_course
         """
-        pk = int(kwargs["pk"])
+        pk = int(self.kwargs["pk"])
         queryset = Courses.objects.filter(id=pk)
         serializer = CoursesSerializer(queryset, many=True)
         return Response(serializer.data)

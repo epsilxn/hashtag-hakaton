@@ -4,18 +4,17 @@
         <div class="line"></div>
         <div class="flex_info">
             <div class="parent_info">
-              <p>Фамилия: Алиев</p>
-              <p>Имя: Давид</p>
-              <p>Отчество: Мурадович</p>
+              <p>Фамилия: {{parent.last_name}}</p>
+              <p>Имя: {{parent.first_name}}</p>
+              <p>Отчество: {{parent.patronymic}}</p>
             </div>
             <div class="child_info">
-              <div class="child_one">
-                <p>Ваш ребенок: Умывалкин Максим Александрович</p>
-                <p>Записан на курс: Робототехника</p>
-              </div>
-              <div class="child_two">
-                <p>Ваш ребенок: Изис Александр Валерьевич</p>
-                <p>Записан на курс: Основы программирования</p>
+              <div :key="child.id" v-for="child in parent.children_of_parent">
+                  <p>Ваш ребёнок: {{child.last_name}} {{child.first_name}} {{child.patronymic}}</p>
+                  <p>Записан на курсы:</p>
+                  <div :key="child_course" v-for="child_course in child.courses">
+                      <p>{{child_course}}</p>
+                  </div>
               </div>
             </div>
         </div>
@@ -24,7 +23,18 @@
 
 <script>
 export default {
-  name: "Parent"
+  name: "Parent",
+  data() {
+    return {
+      parent: ""
+    }
+  },
+    async mounted() {
+    // Заменить на динамику, всё работает
+    let parent = await (await fetch("http://127.0.0.1:8000/api/parent/2/")).json()
+    console.log(parent)
+    this.parent = parent
+  }
 }
 </script>
 
