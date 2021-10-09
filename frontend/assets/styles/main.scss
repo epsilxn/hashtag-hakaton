@@ -525,3 +525,26 @@ body {
         transform: scale(1.02);
     }
 }
+.main_info{
+    width: 100%;
+    .hello{
+        text-align: center;
+    }
+    .line{
+        height: 5px;
+        width: 95%;
+        background-color: black;
+        margin: 20px;
+        border-radius: 5px;
+    }
+    .flex_info{
+        display: flex;
+        justify-content: space-between;
+        .child_one{
+            margin: 10px;
+        }
+        .child_two{
+            margin: 10px;
+        }
+    }
+}
