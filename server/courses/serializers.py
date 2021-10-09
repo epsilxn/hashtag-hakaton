@@ -7,7 +7,7 @@ class TeacherSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AdvancedUser
-        exclude = ["password", "is_superuser", "is_staff", "is_active",
+        exclude = ["password", "is_superuser", "is_active",
                    "date_joined", "last_login", "groups", "user_permissions"]
 
 
