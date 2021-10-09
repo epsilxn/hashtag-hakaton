@@ -7,7 +7,8 @@ class TeacherSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AdvancedUser
-        exclude = ["password", ]
+        exclude = ["password", "is_superuser", "is_staff", "is_active",
+                   "date_joined", "last_login", "groups", "user_permissions"]
 
 
 class LessonsSerializer(serializers.ModelSerializer):
@@ -23,6 +24,15 @@ class CoursesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Courses
         fields = "__all__"
+
+
+# class TeacherOneSerializer(serializers.ModelSerializer):
+#     teacher_course = CoursesSerializer(many=True)
+#
+#     class Meta:
+#         model = AdvancedUser
+#         exclude = ["password", "is_superuser", "is_staff", "is_active",
+#                    "date_joined", "last_login", "groups", "user_permissions"]
 
 
 class CoursesManySerializer(serializers.ModelSerializer):
