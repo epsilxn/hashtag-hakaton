@@ -1,5 +1,6 @@
 <template>
     <div class="page_container">
+        <Modal @showModal="showModal" v-if="show_modal"/>
         <section class="course_view">
             <div class="view_header">
                 <div class="view_emoji">{{course.emoji}}</div>
@@ -18,7 +19,11 @@
             </div>
             <div class="lessons_container">
                 <div v-if="[...course.lessons_in_course].length==0" class="form_message msg">Занятия ещё не добавлены</div>
-                <Lesson v-for="(ls, index) in course.lessons_in_course" :key="ls.id" :idx="index+1" :lesson="ls"/>
+                <Lesson @showModal="showModal" 
+                    v-for="(ls, index) in course.lessons_in_course" 
+                    :key="ls.id" 
+                    :idx="index+1" 
+                    :lesson="ls"/>
             </div>
         </section>
     </div>
@@ -27,10 +32,12 @@
 <script>
 import axios from 'axios'
 import Lesson from '@/components/course/Lesson'
+import Modal from '@/components/main/Modal'
 export default {
     data(){
         return{
-            course:{}
+            course:{},
+            show_modal: false
         }
     },
     mounted(){
@@ -40,7 +47,13 @@ export default {
         });
     },
     components:{
-        Lesson
+        Lesson,
+        Modal
+    },
+    methods:{
+        showModal(){
+            this.show_modal=!this.show_modal
+        }
     }
 }
 </script>

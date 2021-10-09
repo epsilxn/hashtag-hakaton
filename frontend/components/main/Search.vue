@@ -1,6 +1,8 @@
 <template>
     <div class="search_wrapper">
-        <input @input="onInput" type="text"/>
+        <input @input="onInput" 
+            placeholder="Найти курс"
+            type="text"/>
         <button>
             <span class="material-icons">
                 search

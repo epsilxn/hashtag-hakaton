@@ -24,7 +24,14 @@
 
 <script>
 export default {
-  name: "Parent"
+  name: "Parent",
+
+  props:{
+    parent:{
+      type: Array,
+      required: true
+    }
+  }
 }
 </script>
 
