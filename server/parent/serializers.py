@@ -5,7 +5,7 @@ from .models import AdvancedUser, Child
 class ChildrenSerializer(serializers.ModelSerializer):
     class Meta:
         model = Child
-        exclude = ["parent_of_child", ]
+        exclude = ["parent_of_child", "courses"]
 
 
 class ParentSerializer(serializers.ModelSerializer):

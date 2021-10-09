@@ -89,7 +89,18 @@ AUTH_PASSWORD_VALIDATORS = [
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ),
+}
+
+DJOSER = {
+    'ACTIVATION_URL': '#/activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': False,
+    'SERIALIZERS': {
+        'user': 'courses.serializers.TeacherSerializer',
+        'user_registration': 'courses.serializers.TeacherSerializer',
+    },
 }
 
 AUTH_USER_MODEL = 'accounts.AdvancedUser'
