@@ -8,7 +8,7 @@ class ChildrenAttendanceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Child
-        exclude = ["parent_of_child", "courses"]
+        exclude = ["parent_of_child"]
 
 
 class ParentSerializer(serializers.ModelSerializer):
