@@ -2,20 +2,6 @@ from django.db import models
 from parent.models import Child
 from accounts.models import AdvancedUser
 
-# class Teacher(models.Model):
-#     email = models.EmailField(verbose_name="Почта", unique=True)
-#     password = models.TextField(verbose_name="Пароль")
-#     first_name = models.CharField(max_length=32, verbose_name="Имя")
-#     last_name = models.CharField(max_length=32, verbose_name="Фамилия")
-#     patronymic = models.CharField(max_length=32, verbose_name="Отчество")
-#
-#     class Meta:
-#         verbose_name = "Преподаватель"
-#         verbose_name_plural = "Преподаватели"
-#
-#     def __str__(self):
-#         return self.email
-
 
 class Courses(models.Model):
     name = models.CharField(max_length=255, verbose_name="Назание курса")
