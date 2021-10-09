@@ -47,7 +47,7 @@ class Attendance(models.Model):
     attendance_confirmed = models.BooleanField(default=False, blank=True,
                                                verbose_name="Преподаватель подтвердил посещение занятия")
     lesson = models.ForeignKey(Lessons, on_delete=models.CASCADE, verbose_name="Занятие",
-                               related_name="attendance_lessons")
+                               related_name="attendance_lessons", blank=True)
     child = models.ForeignKey(Child, on_delete=models.CASCADE, verbose_name="Ребёнок", default=None,
                               related_name="attendance_child")
 
