@@ -405,7 +405,9 @@ body {
     .btn {
         width: auto;
         transition: $transition;
+        text-transform: uppercase;
         background-color: $bg_violet;
+        box-shadow: none;
         color: white;
         padding: .2em;
         border-radius: 5px;
@@ -416,6 +418,7 @@ body {
             background-color: rgba(255, 255, 255, 0.247);
             box-shadow: -4px -4px 10px #ffffff62, 4px 4px 10px #00000025;
         }
+        box-shadow: none;
     }
 }
 

@@ -8,6 +8,7 @@ from django.urls import path, include
     ✓ POST /course
     ✓ DELETE /course
     ✓ PATCH/PUT /course
+    ✓ GET /course?id=teacher_id
     GET /parent
     PATCH/PUT /parent
     DELETE /parent (?)
@@ -22,8 +23,8 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path('api/', include('parent.urls')),
     path("api/", include("courses.urls")),
+    path('api/', include('parent.urls')),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken'))
     #  /auth/users/ - register

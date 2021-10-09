@@ -20,9 +20,11 @@ from accounts.models import AdvancedUser
 class Courses(models.Model):
     name = models.CharField(max_length=255, verbose_name="Назание курса")
     description = models.TextField(verbose_name="Описание курса")
-    teacher = models.ForeignKey(AdvancedUser, on_delete=models.CASCADE, verbose_name="Преподаватель")
+    teacher = models.ForeignKey(AdvancedUser, on_delete=models.CASCADE,
+                                verbose_name="Преподаватель", related_name="teacher_course")
     is_deleted = models.BooleanField(verbose_name="Удален", default=False)
     emoji = models.CharField(max_length=255, verbose_name="Emoji", default="😀")
+    number_of_hours = models.IntegerField(verbose_name="Количество часов", default=10)
 
     class Meta:
         verbose_name = "Курс"
@@ -39,8 +41,7 @@ class Lessons(models.Model):
     time = models.TimeField(verbose_name="Время занятия")
     information = models.TextField(verbose_name="Информация о занятии")
     # Название у Lessons.course - lessons_in_course. BE CAREFUL!
-    course = models.ForeignKey(Courses, on_delete=models.CASCADE, verbose_name="Курс")
-    child = models.ForeignKey(Child, on_delete=models.CASCADE, verbose_name="Ребёнок", default=None)
+    course = models.ForeignKey(Courses, on_delete=models.CASCADE, verbose_name="Курс", related_name="lessons_in_course")
 
     class Meta:
         verbose_name = "Занятие"
