@@ -35,9 +35,15 @@ export default {
                     username: this.user.login,
                     password: this.user.password
                 }).then((res)=>{
-                    this.$store.commit('setStaff')
-                    $nuxt.$store.dispatch('setToken',res.data.auth_token)
-                    console.log(this.$store.state.token)
+                    $nuxt.$store.dispatch('auth',res.data.auth_token)
+                    axios.get("http://127.0.0.1:8000/auth/users/me/", 
+                        { headers: { 'Authorization': `Token ${this.$store.state.token}` } })
+                        .then((resp) => {
+                            console.log(resp)
+                            axios.get(`http://127.0.0.1:8000/api/me/${resp.data.id}`).then((resp) => {
+                                $nuxt.$store.dispatch('setStaff', resp.data.is_staff)
+                            })
+                        })
                 })
             }
             else{

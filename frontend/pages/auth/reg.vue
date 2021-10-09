@@ -10,7 +10,7 @@
 
 <script>
 import Form from '@/components/auth/Form.vue'
-
+import axios from 'axios'
 export default {
     data(){
         return{
@@ -18,9 +18,10 @@ export default {
             user:{
                 email:'',
                 password: '',
-                fio: '',
-                childs: '',
-                photo: ''
+                login:'',
+                name: '',
+                surname: '',
+                patronymic: ''
             }
         }
     },
@@ -29,8 +30,22 @@ export default {
     },
     methods:{
         onSubmit(user){
-            if(user.email!='' && user.password.length>3){
-                console.log(user)
+            if(user.email!='' 
+                && user.login!='' 
+                && user.password.length>3
+                && user.name!=''
+                && user.surname!=''
+            ){
+                axios.post('http://127.0.0.1:8000/auth/users', {
+                    first_name: user.name,
+                    last_name: user.surname,
+                    patronymic: user.patronymic,
+                    username: user.login,
+                    email: user.email
+                })
+                .then((resp)=>{
+                    console.log(resp)
+                })
                 this.message=null
             }
             else{

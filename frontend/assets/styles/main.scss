@@ -137,6 +137,7 @@ body {
 
 .main_form {
     min-width: 20em;
+    margin-top: 1em;
     overflow: hidden;
     position: relative;
     @include flex_column;

@@ -1,13 +1,15 @@
 import axios from "axios"
 export const state = () => ({
     token: null,
-    is_staff: false
+    is_staff: null
 })
 
 export const actions = {
     auth(context, token) {
         context.commit('setToken', token)
-        context.commit('setStaff')
+    },
+    setStaff(context, staff) {
+        context.commit('setStaff', staff)
     }
 }
 
@@ -16,9 +18,8 @@ export const mutations = {
     setToken(state, token) {
         state.token = token
     },
-    setStaff(state) {
-        axios.get("http://127.0.0.1:8000/auth/users/me/", { headers: { 'Authorization': `Token ${state.token}` } }).then((resp) => {
-            console.log(resp)
-        })
+    setStaff(state, staff) {
+        state.is_staff = staff
+        console.log(state.is_staff)
     }
 }

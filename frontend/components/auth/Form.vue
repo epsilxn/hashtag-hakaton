@@ -25,41 +25,21 @@
                 name="password" 
                 id="password"
                 v-model="user.password"/>
-            <input placeholder="Ваши ФИО"  
+            <input placeholder="Имя"  
                 v-if="!login"
                 class="form_input" 
                 type="text" 
-                name="FIO" 
-                id="FIO"
-                v-model="user.fio"/>
-            <div v-if="!login" class="input__wrapper">
-                <input placeholder="Фото"  
-                    v-if="!login"
-                    type="file" 
-                    name="photo" 
-                    id="photo"
-                    class="input input__file"
-                    @change="onChange"/>
-                <label for="photo" class="input__file-button">
-                    <span class="input__file-icon-wrapper">
-                        <span class="material-icons">
-                            cloud_upload
-                        </span>
-                    </span>    
-                    <span class="input__file-button-text">Выберите файл</span>
-                </label>
-            </div>
-            <div v-if="!login" class="child_container">
-                <input v-for="(child,index) in user.childs" :key="index" placeholder="Ребёнок"  
-                    class="form_input" 
-                    type="text" 
-                    name="child" 
-                    id="child"
-                    v-model="user.childs[index]"/>
-                <span @click="addChild" class="plus material-icons">
-                    add_circle_outline
-                </span>
-            </div>
+                v-model="user.name"/>
+            <input placeholder="Фамилия"  
+                v-if="!login"
+                class="form_input" 
+                type="text" 
+                v-model="user.surname"/>
+            <input placeholder="Отчество"  
+                v-if="!login"
+                class="form_input" 
+                type="text" 
+                v-model="user.patronymic"/>
             
             <button v-if="login" class="form_button">Войти</button>
             <button v-else class="form_button">Сохранить</button>
@@ -77,9 +57,9 @@ export default {
                 email:'',
                 login:'',
                 password:'',
-                fio: '',
-                photo:'',
-                childs:[''],
+                name: '',
+                surname:'',
+                patronymic:'',
             },
         }
     },
