@@ -10,6 +10,11 @@
             <div class="more_info">
                 {{lesson.information}}
             </div>
+            <div @click="showModal" class="lesson_button">
+                <div class="nbtn">
+                    <div class="btn">Отметить</div>
+                </div>
+            </div>
         </div>
         <div class="more_time">
             <div class="time">
@@ -32,6 +37,11 @@ export default {
         idx:{
             type: Number,
             default: 1
+        }
+    },
+    methods:{
+        showModal(){
+            this.$emit('showModal')
         }
     }
 }
