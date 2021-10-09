@@ -10,6 +10,7 @@
 
 <script>
 import Form from '@/components/auth/Form.vue'
+import axios from 'axios'
 
 export default {
     data(){
@@ -26,9 +27,18 @@ export default {
     },
     methods:{
         onSubmit(user){
-            if(user.email!='' && user.password.length>3){
-                console.log(user)
+            if(user.login!='' && user.password.length>3){
+                this.user = user
                 this.message=null
+                
+                axios.post('http://127.0.0.1:8000/auth/token/login/',{
+                    username: this.user.login,
+                    password: this.user.password
+                }).then((res)=>{
+                    this.$store.commit('setStaff')
+                    $nuxt.$store.dispatch('setToken',res.data.auth_token)
+                    console.log(this.$store.state.token)
+                })
             }
             else{
                 this.message='Все поля должны быть заполнены'

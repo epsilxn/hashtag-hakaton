@@ -13,7 +13,7 @@
                 <div class="adding info">
                     Преподаватель: <span class="violet">{{course.teacher}}</span>
                     <br/>
-                    Количество часов: <span class="violet">10</span>
+                    Количество часов: <span class="violet">{{course.number_of_hours}}</span>
                 </div>
             </div>
             <div class="lessons_container">
