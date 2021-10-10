@@ -132,6 +132,10 @@ export default {
         showModal2(){
             this.show_modal2=!this.show_modal2;
         },
+        /**
+         * создание записи в таблице посещаемости
+         * @param {number} id - id пользователя
+         */
         async createAttendance(id) {
           let our_id = document.querySelectorAll(".our_id")[id].innerHTML;
           let our_posetil = document.querySelectorAll(".our_posetil")[id].checked;
@@ -154,6 +158,9 @@ export default {
           let res = await data.json();
           console.log(res);
         },
+        /**
+         * создание записи в таблице занятий
+         */
         async createLesson() {
           let body = {
             name: this.lessonName,

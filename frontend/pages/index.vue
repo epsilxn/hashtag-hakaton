@@ -53,12 +53,18 @@ export default {
     })
   },
   methods: {
+    /**
+     * @param {String} search - подстрока для запроса
+     */
     onInput(search) {
       this.search = search
       console.log(this.search)
     }
   },
   computed:{
+    /**
+     * @return массив элементов, содержащих в себе подстроку search
+     */
     courses_computed(){
       if (this.search){
         return this.course_list.filter((el)=>{
