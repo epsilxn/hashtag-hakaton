@@ -23,7 +23,7 @@ class CoursesViewSet(viewsets.ModelViewSet):
         """
         Если пингуется по пути /api/course/id, то возвращаться будет с полем lessons_in_course
         """
-        pk = int(kwargs["pk"])
+        pk = int(self.kwargs["pk"])
         queryset = Courses.objects.filter(id=pk)
         serializer = CoursesSerializer(queryset, many=True)
         return Response(serializer.data)
@@ -42,6 +42,14 @@ class CoursesViewSet(viewsets.ModelViewSet):
                 return Courses.objects.filter(is_deleted=False)
 
 
+class AttendanceViewSet(viewsets.ModelViewSet):
+    queryset = Attendance.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = AttendanceListSerializer
+
+
 class LessonsViewSet(viewsets.ModelViewSet):
     queryset = Lessons.objects.all()
     permission_classes = [
@@ -49,4 +57,28 @@ class LessonsViewSet(viewsets.ModelViewSet):
     ]
     serializer_class = LessonsSerializer
 
-    # def perform_create(self, serializer):
+    def create(self, request, *args, **kwargs):
+        """
+        Переопределение метода для создания списка attendance со всеми детьми на каждый урок
+        :param request: словарь, полученный с фронта
+        :param args: внутренние аргументы
+        :param kwargs: внутренние значения
+        :return: Response status && data
+        """
+        lesson_data = request.data
+        my_course = Courses.objects.get(id=lesson_data["course"])
+        new_lesson = Lessons.objects.create(name=lesson_data["name"], description=lesson_data["description"],
+                                            date=lesson_data["date"], time=lesson_data["time"],
+                                            information=lesson_data["information"], course=my_course,
+                                            price=lesson_data["price"], duration=lesson_data["duration"])
+        new_lesson.save()
+        serializer = LessonsSerializer(new_lesson)
+
+        all_child = Child.objects.filter(courses=my_course)
+
+        for one_child in all_child:
+
+            my_attendance = Attendance.objects.create(child=one_child, lesson=new_lesson)
+            my_attendance.save()
+
+        return Response(serializer.data)

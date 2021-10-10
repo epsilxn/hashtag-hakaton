@@ -17,7 +17,8 @@ class Child(BaseModel):
     patronymic = models.CharField(max_length=50, verbose_name="Отчество")
     parent_of_child = models.ForeignKey(AdvancedUser, on_delete=models.CASCADE, verbose_name="Родитель",
                                         related_name="children_of_parent")
-    courses = models.ManyToManyField("courses.Courses", verbose_name="Курсы", related_name="children_of_courses")
+    courses = models.ManyToManyField("courses.Courses", verbose_name="Курсы", related_name="children_of_courses",
+                                     blank=True)
 
     class Meta:
         verbose_name = "Ребёнок"

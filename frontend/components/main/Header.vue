@@ -1,6 +1,8 @@
 <template>
     <header>
-        <div class="header"><span class="violet">Gib</span>Courses</div>
+        <div class="header">
+            <span class="violet">Gib</span>
+            Courses</div>
     </header>
 </template>
 

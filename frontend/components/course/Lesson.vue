@@ -10,13 +10,27 @@
             <div class="more_info">
                 {{lesson.information}}
             </div>
+            <div v-if="$store.getters.getStaff" @click="showModal" class="lesson_button">
+                <div class="nbtn">
+                    <div class="btn">Отметить</div>
+                </div>
+            </div>
         </div>
         <div class="more_time">
+            <div class="date">
+                 Цена: {{lesson.price}} &nbsp;
+            </div>
+            <div class="date">
+                 Длительность: {{lesson.duration}} &nbsp;
+            </div>
             <div class="time">
                 {{lesson.time.slice(0, -3) }} &nbsp;
             </div>
             <div class="date">
-                 {{lesson.date}}
+                 {{lesson.date}} &nbsp;
+            </div>
+            <div class="duration">
+                {{lesson.duration}}
             </div>
         </div>
     </div>
@@ -32,6 +46,11 @@ export default {
         idx:{
             type: Number,
             default: 1
+        }
+    },
+    methods:{
+        showModal(){
+            this.$emit('showModal')
         }
     }
 }
