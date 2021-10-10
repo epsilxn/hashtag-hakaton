@@ -1,23 +1,44 @@
 <template>
-    <div class="main_info">
-        <p class="hello">Здравствуйте, родитель</p>
-        <div class="line"></div>
-        <div class="flex_info">
-            <div class="parent_info">
-              <p>Фамилия: {{parent.last_name}}</p>
-              <p>Имя: {{parent.first_name}}</p>
-              <p>Отчество: {{parent.patronymic}}</p>
+    <div class="teacher_info">
+      <p class="lk_header">Личный кабинет</p>
+      <div class="about_block">
+        
+        <div class="about_me">
+          <div class="card">
+            <div class="card_header">
+              Родитель
             </div>
-            <div class="child_info">
-              <div :key="child.id" v-for="child in parent.children_of_parent">
-                  <p>Ваш ребёнок: {{child.last_name}} {{child.first_name}} {{child.patronymic}}</p>
-                  <p>Записан на курсы:</p>
-                  <div :key="child_course" v-for="child_course in child.courses">
-                      <p>{{child_course}}</p>
+            <div class="card_body">
+              <label for="">ФИО</label>
+              <p>{{ parent.last_name }} {{ parent.first_name }} {{ parent.patronymic }} <span class="liryc">id: {{ parent.id }}</span></p>
+              <label for="">Почта</label>
+              <p>{{ parent.mail || 'не указана'}}</p>
+              <label for="">Номер телефона</label>
+              <p>{{ parent.phone || "8 800 555 35 35" }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="about_me">
+          <div class="card">
+            <div class="card_header">
+              Дети
+            </div>
+            <div class="card_body">
+              <div :key="index" v-for="(child, index) in parent.children_of_parent" class="child_info">
+                
+                  <label for="">ФИО</label>
+                  <p>{{child.last_name}} {{child.first_name}} {{child.patronymic}}</p>
+                  <label for="">Записан на</label>
+                  <div :key="idx" v-for="(child_course, idx) in ids2[index]">
+                     <p> {{idx+1}}) {{child_course}}</p>
                   </div>
+                </div>
               </div>
             </div>
+          </div>
         </div>
+      </div>
+        
       </div>
 </template>
 
@@ -35,7 +56,7 @@ export default {
     mounted() {
       axios.get("http://127.0.0.1:8000/api/parent/2/").then((resp)=>{
         this.parent = resp.data
-        
+        console.log(this.parent)
         for (let item of resp.data.children_of_parent){
           this.ids.push(item.courses)
         }

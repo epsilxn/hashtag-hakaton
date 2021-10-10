@@ -4,7 +4,7 @@
             <Parent v-if="!is_staff"/>
             <Teacher v-else/>
             <nuxt-link :to="'/auth'">
-              <div class="red">
+              <div class="btn_primary btn_danger">
                 выйти
               </div>
             </nuxt-link>

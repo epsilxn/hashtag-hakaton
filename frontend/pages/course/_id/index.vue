@@ -1,7 +1,7 @@
 <template>
     <div class="page_container">
         <Modal @showModal="showModal" v-if="show_modal" :id="this.lessonId">
-            <table border class="table table-striped">
+            <table class="table table-striped">
               <thead>
                 <tr>
                   <td>id</td>
@@ -37,7 +37,7 @@
                 </tr>
               </tbody>
             </table>
-          <button>Отправить</button>
+          <button class="btn btn_primary">Отправить</button>
         </Modal>
         <Modal2
         @showModal="showModal2"
@@ -152,7 +152,3 @@ export default {
     }
 }
 </script>
-
-<style src="~/static/css/bootstrap.css">
-
-</style>

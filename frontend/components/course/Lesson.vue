@@ -10,7 +10,7 @@
             <div class="more_info">
                 {{lesson.information}}
             </div>
-            <div @click="showModal" class="lesson_button">
+            <div v-if="$store.getters.getStaff" @click="showModal" class="lesson_button">
                 <div class="nbtn">
                     <div class="btn">Отметить</div>
                 </div>
