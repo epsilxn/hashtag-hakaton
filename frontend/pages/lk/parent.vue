@@ -25,6 +25,9 @@ export default {
     Teacher
   },
   mounted() {
+    /**
+     * Подгрузка данных о родителе при загрузки компоента
+     */
     axios.get("http://127.0.0.1:8000/api/parent").then((res)=>{
       console.log('parent',res)
     });  

@@ -70,7 +70,7 @@
                   <p>{{child.last_name}} {{child.first_name}} {{child.patronymic}}</p>
                   <label for="">Записан на</label>
                   <div :key="idx" v-for="(child_course, idx) in ids2[index]">
-                     <p> {{idx+1}}) {{child_course}}</p>
+                    <p @click="getAttendents(ids[index][idx], child.id)"> {{idx+1}}) {{child_course}}</p>
                   </div>
                 </div>
             </div>
@@ -101,7 +101,6 @@ export default {
     // Заменить на динамику, всё работает
       axios.get("http://127.0.0.1:8000/api/parent/2/").then((resp)=>{
         this.parent = resp.data
-        console.log(this.parent)
         for (let item of resp.data.children_of_parent){
           this.ids.push(item.courses)
         }
@@ -131,6 +130,12 @@ export default {
     showModal2() {
       this.show_modal2 = !this.show_modal2
     },
+    getAttendents(id, child_id){
+      console.log(id, child_id)
+      axios.get(`http://127.0.0.1:8000/api/course/${id}`).then((res)=>{
+        console.log(res.data[0].children_of_courses)
+      })
+    }
   }
 }
 </script>
