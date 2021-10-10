@@ -17,6 +17,12 @@
             </div>
         </div>
         <div class="more_time">
+            <div class="date">
+                 Цена: {{lesson.price}} &nbsp;
+            </div>
+            <div class="date">
+                 Длительность: {{lesson.duration}} &nbsp;
+            </div>
             <div class="time">
                 {{lesson.time.slice(0, -3) }} &nbsp;
             </div>

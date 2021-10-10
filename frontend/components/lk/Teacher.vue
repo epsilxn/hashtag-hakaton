@@ -7,7 +7,7 @@
         <div class="adding_header">Добавление курса</div>
         <input class="input_primary" placeholder="Название курса" type="text">
         <textarea class="input_primary" placeholder="Описание курса" name="" id="" cols="30" rows="10"></textarea>
-        <div>Преподаватель:</div>
+        <div>Преподаватель: Алиев Давид</div>
         <input class="input_primary" placeholder="Эмодзи" type="text">
         <input class="input_primary" placeholder="Kоличество часов" type="text">
         <button class="btn_primary">Отправить</button>
@@ -46,8 +46,6 @@
                 <button class="btn_primary btn_warning">Редактировать</button>
                 <button class="btn_primary btn_danger" @click="deleteCourse($event)" :data="item.id">Удалить</button>
               </div>
-
-
           </div>
         </div>
       </div>

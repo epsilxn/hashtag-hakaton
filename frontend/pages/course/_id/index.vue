@@ -39,10 +39,20 @@
             </table>
           <button class="btn btn_primary">Отправить</button>
         </Modal>
-        <Modal2
-        @showModal="showModal2"
-            v-if="show_modal2">
-            asdasdasd
+        <Modal2 @showModal="showModal2" v-if="show_modal2">
+            <div class="adding_course">
+                <div class="adding_header">Добавление занятия</div>
+                <input class="input_primary" placeholder="Название занятия" type="text" v-model="lessonName">
+                <input class="input_primary" placeholder="Описание занятия" type="text" v-model="lessonDescription">
+                <input class="input_primary" placeholder="Подробная информация" type="text" v-model="lessonInformation">
+                <input class="input_primary" placeholder="Цена" type="text" v-model="lessonPrice">
+                <input class="input_primary" placeholder="Длительность" type="text" v-model="lessonDuration">
+                <label for="">Время</label>
+                <input class="input_primary" type="time" v-model="lessonTime">
+                <label for="">Дата</label>
+                <input class="input_primary" type="date" v-model="lessonDate">
+                <button @click="createLesson" class="btn btn_primary">Создать</button>
+            </div>
         </Modal2>
         <section class="course_view">
             <div class="view_header">
@@ -88,16 +98,18 @@ export default {
             show_modal2: false,
             lessonId: 0,
             lessons: [],
-            kids: []
+            kids: [],
+            lessonName: "",
+            lessonDescription: "",
+            lessonDate: "",
+            lessonTime: "",
+            lessonInformation: "",
+            lessonDuration: '',
+            lessonPrice: ''
         }
     },
     mounted(){
-        axios.get(`http://127.0.0.1:8000/api/course/${this.$route.params.id}/`).then((resp)=>{
-            this.course = resp.data[0];
-            this.kids = resp.data[0].children_of_courses;
-            console.log( resp.data[0])
-            // console.log(this.course.lessons_in_course.length==0)
-        });
+        this.reload();
 
     },
     components:{
@@ -106,6 +118,13 @@ export default {
         Modal2
     },
     methods:{
+        reload() {
+          axios.get(`http://127.0.0.1:8000/api/course/${this.$route.params.id}/`).then((resp)=>{
+            this.course = resp.data[0];
+            this.kids = resp.data[0].children_of_courses;
+            // console.log(this.course.lessons_in_course.length==0)
+          });
+        },
         showModal(id){
             this.show_modal=!this.show_modal;
             this.lessonId = id
@@ -134,21 +153,31 @@ export default {
           });
           let res = await data.json();
           console.log(res);
+        },
+        async createLesson() {
+          let body = {
+            name: this.lessonName,
+            description: this.lessonDescription,
+            date: this.lessonDate,
+            time: `${this.lessonTime}:00`,
+            information: this.lessonInformation,
+            course: this.course.id,
+            duration: this.lessonDuration,
+            price: this.lessonPrice
+          }
+          console.log(this.lessonTime)
+          let data = await fetch("http://127.0.0.1:8000/api/lesson/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json;charset=utf-8"
+            },
+            body: JSON.stringify(body)
+          });
+          let res = await data.json();
+          console.log(res);
+          this.reload();
         }
-      // createAttendance() {
-          // тут нужно в цикле реализовать логику по пингу на POST http://127.0.0.1:8000/api/att/
-        // В цикле потому, что он не сможет обработать массив
-        // for (let i = 0; i < tbody.tr.length; i++) {
-        //     axios.post("http://127.0.0.1:8000/api/att/", {
-        //         нумерация начинается с 1
-        //         child: id ребёнка (1 td),
-        //         lesson: ласт id в td,
-        //         paid_confirmed_parent: td 5,
-        //         paid_confirmed_teacher: td 6,
-        //         attendance_confirmed: td 4
-        //     })
-        // }
-      // }
+
     }
 }
 </script>
