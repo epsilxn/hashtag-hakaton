@@ -1,5 +1,6 @@
 <template>
     <div class="lesson">
+        <h1>{{lesson.price}}</h1>
         <div class="lesson_count">
             {{idx}}
         </div>
@@ -21,7 +22,10 @@
                 {{lesson.time.slice(0, -3) }} &nbsp;
             </div>
             <div class="date">
-                 {{lesson.date}}
+                 {{lesson.date}} &nbsp;
+            </div>
+            <div class="duration">
+                {{lesson.duration}}
             </div>
         </div>
     </div>
