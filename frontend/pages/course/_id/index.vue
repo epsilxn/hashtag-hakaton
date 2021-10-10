@@ -1,7 +1,7 @@
 <template>
     <div class="page_container">
         <Modal @showModal="showModal" v-if="show_modal" :id="this.lessonId">
-            <table border class="table table-striped">
+            <table class="table table-striped">
               <thead>
                 <tr>
                   <td>id</td>
@@ -37,26 +37,22 @@
                 </tr>
               </tbody>
             </table>
-          <button>Отправить</button>
+          <button class="btn btn_primary">Отправить</button>
         </Modal>
         <Modal2 @showModal="showModal2" v-if="show_modal2">
-          <div>
-            <label for="">Название урока</label>
-            <input type="text" v-model="lessonName">
-
-            <label for="">Краткое описание</label>
-            <input type="text" v-model="lessonDescription">
-
-            <label for="">Дата</label>
-            <input type="date" v-model="lessonDate">
-
-            <label for="">Время</label>
-            <input type="time" v-model="lessonTime">
-
-            <label for="">Информация</label>
-            <input type="text" v-model="lessonInformation">
-            <button @click="createLesson" class="btn btn_primary">Создать</button>
-          </div>
+            <div class="adding_course">
+                <div class="adding_header">Добавление занятия</div>
+                <input class="input_primary" placeholder="Название занятия" type="text" v-model="lessonName">
+                <input class="input_primary" placeholder="Описание занятия" type="text" v-model="lessonDescription">
+                <input class="input_primary" placeholder="Подробная информация" type="text" v-model="lessonInformation">
+                <input class="input_primary" placeholder="Цена" type="text" v-model="lessonPrice">
+                <input class="input_primary" placeholder="Длительность" type="text" v-model="lessonDuration">
+                <label for="">Время</label>
+                <input class="input_primary" type="time" v-model="lessonTime">
+                <label for="">Дата</label>
+                <input class="input_primary" type="date" v-model="lessonDate">
+                <button @click="createLesson" class="btn btn_primary">Создать</button>
+            </div>
         </Modal2>
         <section class="course_view">
             <div class="view_header">
@@ -108,6 +104,8 @@ export default {
             lessonDate: "",
             lessonTime: "",
             lessonInformation: "",
+            lessonDuration: '',
+            lessonPrice: ''
         }
     },
     mounted(){
@@ -124,7 +122,6 @@ export default {
           axios.get(`http://127.0.0.1:8000/api/course/${this.$route.params.id}/`).then((resp)=>{
             this.course = resp.data[0];
             this.kids = resp.data[0].children_of_courses;
-            console.log( resp.data[0])
             // console.log(this.course.lessons_in_course.length==0)
           });
         },
@@ -164,9 +161,11 @@ export default {
             date: this.lessonDate,
             time: `${this.lessonTime}:00`,
             information: this.lessonInformation,
-            course: this.course.id
+            course: this.course.id,
+            duration: this.lessonDuration,
+            price: this.lessonPrice++
           }
-          console.log(this.lessonTime)
+          console.log(body.price)
           let data = await fetch("http://127.0.0.1:8000/api/lesson/", {
             method: "POST",
             headers: {
@@ -182,7 +181,3 @@ export default {
     }
 }
 </script>
-
-<style src="~/static/css/bootstrap.css">
-
-</style>

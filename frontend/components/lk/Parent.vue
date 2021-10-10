@@ -1,6 +1,7 @@
 <template>
-    <div class="main_info">
-        <Modal @showModal="showModal" v-if="show_modal">
+
+    <div class="teacher_info">
+      <Modal @showModal="showModal" v-if="show_modal">
             <table border>
               <thead>
                 <tr>
@@ -27,34 +28,62 @@
               </tbody>
             </table>
           <button></button>
-        </Modal>
-
-
-        <p class="hello">Здравствуйте, родитель</p>
-        <div class="line"></div>
-        <div class="flex_info">
-            <div class="parent_info">
-              <p>Фамилия: {{parent.last_name}}</p>
-              <p>Имя: {{parent.first_name}}</p>
-              <p>Отчество: {{parent.patronymic}}</p>
+      </Modal>
+      <Modal @showModal="showModal2" v-if="show_modal2">
+        <div class="adding_course">
+          <div class="adding_header">Добавление ребёнка</div>
+          <input class="input_primary" placeholder="Фамилия" type="text">
+          <input class="input_primary" placeholder="Имя" type="text">
+          <input class="input_primary" placeholder="Отчество" type="text">
+          <input class="input_primary" placeholder="Курс" type="text">
+        <button class="btn_primary">Отправить</button>
+      </div>
+      </Modal>
+      <p class="lk_header">Личный кабинет</p>
+      <div class="about_block">
+        
+        <div class="about_me">
+          <div class="card">
+            <div class="card_header">
+              Родитель
             </div>
-            <div class="child_info">
-              <div :key="child.id" v-for="(child, index) in parent.children_of_parent">
-                  <p>Ваш ребёнок: {{child.last_name}} {{child.first_name}} {{child.patronymic}}</p>
-                  <p>Записан на курсы:</p>
-                  <div :key="child_course" v-for="child_course in ids2[index]">
-                      <p>{{child_course}}</p>
-                  </div>
-                  <button @click="showModal(child.id)">Подробнее</button>
-              </div>
+            <div class="card_body">
+              <label for="">ФИО</label>
+              <p>{{ parent.last_name }} {{ parent.first_name }} {{ parent.patronymic }} <span class="liryc">id: {{ parent.id }}</span></p>
+              <label for="">Почта</label>
+              <p>{{ parent.mail || 'не указана'}}</p>
+              <label for="">Номер телефона</label>
+              <p>{{ parent.phone || "8 800 555 35 35" }}</p>
             </div>
+          </div>
         </div>
+        <div class="about_me">
+          <div class="card">
+            <div class="card_header">
+              Дети
+            </div>
+            <div class="card_body">
+              <div @click="showModal2" class="plus">+</div>
+              <div :key="index" v-for="(child, index) in parent.children_of_parent" class="child_info">
+                
+                  <label for="">ФИО</label>
+                  <p>{{child.last_name}} {{child.first_name}} {{child.patronymic}}</p>
+                  <label for="">Записан на</label>
+                  <div :key="idx" v-for="(child_course, idx) in ids2[index]">
+                     <p> {{idx+1}}) {{child_course}}</p>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
 import Modal from '@/components/main/Modal'
+import Modal2 from '@/components/main/Modal'
 export default {
   name: "Parent",
   data() {
@@ -63,7 +92,8 @@ export default {
       child_one: "",
       ids:[],
       ids2:[],
-      show_modal:true,
+      show_modal: false,
+      show_modal2: false,
       childId:0,
     }
   },
@@ -71,7 +101,7 @@ export default {
     // Заменить на динамику, всё работает
       axios.get("http://127.0.0.1:8000/api/parent/2/").then((resp)=>{
         this.parent = resp.data
-        
+        console.log(this.parent)
         for (let item of resp.data.children_of_parent){
           this.ids.push(item.courses)
         }
@@ -90,12 +120,16 @@ export default {
       })
     },
   components:{
-      Modal
+      Modal,
+      Modal2
     },
   methods: {
     showModal(id) {
       this.show_modal = !this.show_modal
       this.childId = id     
+    },
+    showModal2() {
+      this.show_modal2 = !this.show_modal2
     },
   }
 }

@@ -1,6 +1,5 @@
 <template>
     <div class="lesson">
-        <h1>{{lesson.price}}</h1>
         <div class="lesson_count">
             {{idx}}
         </div>
@@ -11,13 +10,19 @@
             <div class="more_info">
                 {{lesson.information}}
             </div>
-            <div @click="showModal" class="lesson_button">
+            <div v-if="$store.getters.getStaff" @click="showModal" class="lesson_button">
                 <div class="nbtn">
                     <div class="btn">Отметить</div>
                 </div>
             </div>
         </div>
         <div class="more_time">
+            <div class="date">
+                 Цена: {{lesson.price}} &nbsp;
+            </div>
+            <div class="date">
+                 Длительность: {{lesson.duration}} &nbsp;
+            </div>
             <div class="time">
                 {{lesson.time.slice(0, -3) }} &nbsp;
             </div>
