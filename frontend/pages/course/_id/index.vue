@@ -12,6 +12,7 @@
                   <td>Принял оплату</td>
                   <td>Курс</td>
                   <td>Занятие</td>
+                  <td>*</td>
                 </tr>
               </thead>
               <tbody>
@@ -24,10 +25,11 @@
                   <td><input type="checkbox"></td>
                   <td>{{course.id}}</td>
                   <td>{{lessonId}}</td>
+                  <td><button class="btn btn_primary">Отправить</button></td>
                 </tr>
               </tbody>
             </table>
-          <button></button>
+          <button>Отправить</button>
         </Modal>
         <section class="course_view">
             <div class="view_header">
@@ -67,12 +69,14 @@ export default {
             course:{},
             show_modal: false,
             lessonId: 0,
-            lessons: []
+            lessons: [],
+            kids: []
         }
     },
     mounted(){
         axios.get(`http://127.0.0.1:8000/api/course/${this.$route.params.id}/`).then((resp)=>{
-            this.course = resp.data[0]
+            this.course = resp.data[0];
+            this.kids = resp.data[0].children_of_courses;
             console.log( resp.data[0])
             // console.log(this.course.lessons_in_course.length==0)
         });

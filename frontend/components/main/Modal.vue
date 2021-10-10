@@ -18,6 +18,10 @@ export default {
         id: {
           type: Number,
           default: 1
+        },
+        attendanceArray: {
+          type: Array,
+          default: []
         }
     },
     methods:{
