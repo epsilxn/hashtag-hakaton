@@ -58,6 +58,13 @@ class LessonsViewSet(viewsets.ModelViewSet):
     serializer_class = LessonsSerializer
 
     def create(self, request, *args, **kwargs):
+        """
+        Переопределение метода для создания списка attendance со всеми детьми на каждый урок
+        :param request: словарь, полученный с фронта
+        :param args: внутренние аргументы
+        :param kwargs: внутренние значения
+        :return: Response status && data
+        """
         lesson_data = request.data
         my_course = Courses.objects.get(id=lesson_data["course"])
         new_lesson = Lessons.objects.create(name=lesson_data["name"], description=lesson_data["description"],
