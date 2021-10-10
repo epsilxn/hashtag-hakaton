@@ -48,7 +48,7 @@ class AttendanceLessonListSerializer(serializers.ModelSerializer):
 
 
 class LessonsSerializer(serializers.ModelSerializer):
-    attendance_lessons = AttendanceLessonListSerializer(many=True)
+    attendance_lessons = AttendanceLessonListSerializer(many=True, read_only=True)
 
     class Meta:
         model = Lessons

@@ -29,6 +29,8 @@ class Lessons(models.Model):
     # Название у Lessons.course - lessons_in_course. BE CAREFUL!
     course = models.ForeignKey(Courses, on_delete=models.CASCADE, verbose_name="Курс",
                                related_name="lessons_in_course")
+    price = models.IntegerField(verbose_name="Цена", default=500)
+    duration = models.TimeField(verbose_name="Длительность", default="1:30")
 
     class Meta:
         verbose_name = "Занятие"
