@@ -2,6 +2,7 @@
 
     <div class="teacher_info">
       <Modal @showModal="showModal" v-if="show_modal">
+        
             <table border>
               <thead>
                 <tr>
@@ -42,7 +43,38 @@
       </Modal>
       <Modal @showModal="showModal3" v-if="show_modal3">
         <div class="adding_course">
-          просмотр посещений
+          <p class="lk_header">Проверка посещений</p>
+          <table class="table table-striped">
+              <thead>
+                <tr>
+                  <td>id </td>
+                  <td>id занятия</td>
+                  <td>Посетил</td>
+                  <td>Оплатил</td>
+                  <td>Оплата принята</td>
+                  <td>*</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(item, index) in child_att" :key="index">
+                  <td class="our_id">{{item.id}}</td> 
+                  <td>{{item.lesson}}</td> <!-- -->
+                  <td>
+                    <input type="checkbox" class="our_posetil" readonly :checked="item.attendance_confirmed">
+                  </td>
+                  <td>
+                    <input type="checkbox" class="our_oplatil" readonly :checked="item.paid_confirmed_parent">
+                  </td>
+                  <td>
+                    <input type="checkbox" class="our_prinyal" readonly :checked="item.paid_confirmed_teacher">
+                  </td>
+                  
+                  <td>
+                    <button class="btn btn-primary" @click="updatePayment(index)">Оплатить</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
         <button class="btn_primary">Отправить</button>
       </div>
       </Modal>
@@ -157,9 +189,22 @@ export default {
       console.log(id, child_id)
       this.showModal3()
       axios.get(`http://127.0.0.1:8000/api/parent/2/`).then((res)=>{
-        this.child_att=res.data.children_of_parent[child_id]
+        this.child_att=res.data.children_of_parent[child_id].attendance_child
         console.log(this.child_att)
       })
+    },
+    updatePayment(index){
+      let id =  document.querySelectorAll('.our_id')[index].innerHTML
+      axios.patch(`http://127.0.0.1:8000/api/att/${id}/`,
+        {
+          paid_confirmed_parent: true
+        }).then((res)=>{
+          console.log('fin res', res)
+        })
+        this.show_modal2=false
+        this.show_modal=false
+        this.show_modal3=false
+        this.mntd()
     },
     addCourse(){
       this.adding_child.course.push('')
@@ -182,6 +227,8 @@ export default {
       }).then((resp)=>{
         console.log(resp)
         this.show_modal2=false
+        this.show_modal=false
+        this.show_modal3=false
         this.mntd()
       })
       console.log(this.adding_child)
