@@ -25,12 +25,12 @@ class ChildViewSet(viewsets.ModelViewSet):
         curr_course = Courses.objects.get(id=child_data["courses"])
         new_child = Child.objects.create(last_name=child_data["last_name"], first_name=child_data["first_name"],
                                          patronymic=child_data["patronymic"],
-                                         parent_of_child=curr_parent, courses=curr_course)
+                                         parent_of_child=curr_parent, courses=curr_course.id)
         new_child.save()
         serializer = ChildSerializer(new_child)
         all_lessons = Lessons.objects.filter(course=curr_course)
         for one_lesson in all_lessons:
-            new_attend = Attendance.objects.create(child=new_child, lesson=one_lesson)
+            new_attend = Attendance.objects.create(child=new_child.id, lesson=one_lesson.id)
             new_attend.save()
         return Response(serializer.data)
 
