@@ -348,25 +348,33 @@ body {
     }
 }
 
+.courses_container {
+    @include flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%
+}
+
 .courses {
     @include flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: start;
     overflow: hidden;
     font-size: .8em;
+    width: auto;
     .course_item {
         position: relative;
         overflow: hidden;
         @include flex_column;
         text-align: center;
         background-color: $bg_primary_op;
-        box-shadow: $dark_shadow;
         border-radius: 10px;
         margin: 1em;
         padding: .5em;
         padding-top: 2em;
         text-overflow: ellipsis;
-        width: 29%;
+        width: 30.3%;
+        box-shadow: $dark_shadow;
         backdrop-filter: blur(4px);
         background: rgb(154, 158, 251);
         background: radial-gradient(circle, rgba(176, 178, 253, 0.741) 0%, rgba(241, 235, 255, 0.737) 80%);
@@ -598,9 +606,21 @@ body {
     }
 }
 
+@media screen and (max-width: 1400px) {
+    .main_page {
+        width: 100%;
+    }
+    .course_item {
+        width: 30% !important;
+    }
+}
+
 @media screen and (max-width: 1200px) {
     .main_page {
         width: 100%;
+    }
+    .course_item {
+        width: 29% !important;
     }
 }
 
@@ -661,10 +681,10 @@ body {
     background-color: rgba(0, 0, 0, 0.103);
     .modal_wrapper {
         z-index: 2;
-        width: 30em;
-        height: 30em;
-        background-color: white;
-        overflow: scroll;
+        background-color: rgba(255, 255, 255, 0.89);
+        padding: 1em;
+        min-width: 30em;
+        backdrop-filter: blur(2px);
         border-radius: 10px;
     }
     .modal_back {
@@ -677,4 +697,156 @@ body {
         width: 100vw;
         height: 100vh;
     }
+}
+
+.teacher_info {
+    width: 90%;
+    .about_block {
+        @include flex;
+        justify-content: space-between;
+        width: 100%;
+        .about_me {
+            @include flex_column;
+            width: 45%;
+            .card {
+                @include flex_column;
+                position: relative;
+                overflow-y: hidden;
+                margin: 1em;
+                padding: 1em;
+                padding-top: 2em;
+                background: rgba(154, 157, 251, 0.767);
+                background: radial-gradient(circle, rgba(176, 178, 253, 0.741) 0%, rgba(241, 235, 255, 0.737) 80%);
+                transition: $transition;
+                box-shadow: $dark_shadow;
+                .card_header {
+                    position: absolute;
+                    color: $bg_violet;
+                    padding: .5em;
+                    top: 0;
+                    width: 100%;
+                    background-color: #fff;
+                    text-align: center;
+                }
+                .course_head {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    .plus {
+                        font-size: 1.2em;
+                        border-radius: 50%;
+                        padding: .1em .4em;
+                        margin-left: 1em;
+                        background: rgba(154, 157, 251, 0.767);
+                        border: 1px solid $bg_violet;
+                        background: radial-gradient(circle, rgba(191, 253, 176, 0.741) 0%, rgba(235, 255, 235, 0.737) 80%);
+                        box-shadow: $neo_shad
+                    }
+                }
+                .card_body {
+                    @include flex_column;
+                    font-size: .8em;
+                    padding: .5em;
+                    * {
+                        margin: .2em;
+                    }
+                    label {
+                        font-size: 1.1em;
+                        color: $bg_violet;
+                        margin-top: .4em;
+                    }
+                    .card_course_item {
+                        @include flex;
+                        padding: .3em;
+                        a {
+                            transition: $transition;
+                        }
+                        a:hover {
+                            font-size: 1.1em;
+                            color: $bg_violet;
+                        }
+                        width: 100%;
+                        background-color: #fff;
+                        border-radius: 5px;
+                        box-shadow: $light_shadow;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.liryc {
+    font-size: .7em;
+    color: $bg_violet_dark_op;
+}
+
+.btn_primary {
+    width: auto;
+    background-color: $bg_violet;
+    color: white;
+    cursor: pointer;
+    padding: .4em !important;
+    transition: $transition;
+    border-radius: 5px;
+    margin: 1em;
+    &:hover {
+        color: $bg_violet !important;
+        border: 1px solid $bg_violet !important;
+        background-color: rgba(255, 255, 255, 0.247);
+        box-shadow: $neo_shad;
+    }
+}
+
+.btn_danger {
+    background-color: $bg_red;
+    border: 1px solid transparent !important;
+    &:hover {
+        color: $bg_red !important;
+        border: 1px solid $bg_red !important;
+        background-color: rgba(255, 255, 255, 0.247);
+        box-shadow: $neo_shad;
+    }
+}
+
+.btn_warning {
+    background-color: $bg_yellow;
+    border: 1px solid transparent !important;
+    &:hover {
+        color: $bg_yellow !important;
+        border: 1px solid $bg_yellow !important;
+        background-color: rgba(255, 255, 255, 0.247);
+        box-shadow: $neo_shad;
+    }
+}
+
+.adding_course {
+    @include flex_column;
+    justify-content: center;
+    .adding_header {
+        font-size: 1.1em;
+        color: $bg_violet
+    }
+}
+
+.input_primary {
+    width: 90%;
+    outline: none;
+    border: none;
+    backdrop-filter: blur(3px);
+    padding: .5em;
+    border-radius: 5px;
+    margin: .5em;
+    border: 1px solid transparent;
+    transition: $transition;
+    border-top: 1px solid $bg_violet_light;
+    border-left: 1px solid $bg_violet_light;
+    background-color: rgba(255, 255, 255, 0.514);
+    text-align: center;
+    box-shadow: $light_shadow;
+}
+
+.lk_header {
+    font-size: 1.2em;
+    color: $bg_violet
 }

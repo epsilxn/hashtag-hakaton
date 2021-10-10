@@ -1,7 +1,7 @@
 <template>
     <div class="page_container">
         <div class="main_page">
-            <Parent/>
+            <!-- <Parent/> -->
             <Teacher/>
         </div>
     </div>

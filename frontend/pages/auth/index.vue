@@ -39,9 +39,11 @@ export default {
                     axios.get("http://127.0.0.1:8000/auth/users/me/", 
                         { headers: { 'Authorization': `Token ${this.$store.state.token}` } })
                         .then((resp) => {
-                            console.log(resp)
                             axios.get(`http://127.0.0.1:8000/api/me/${resp.data.id}`).then((resp) => {
                                 $nuxt.$store.dispatch('setStaff', resp.data.is_staff)
+                                document.cookie = `token=${String(this.$store.state.token)}`;
+                                console.log(document.cookie)
+                                this.$router.push('lk/')
                             })
                         })
                 })

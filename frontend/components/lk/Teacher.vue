@@ -1,59 +1,53 @@
 <template>
-  <div class="top-4">
+  <div class="teacher_info">
+    <div class="lk_header">Личный кабинет</div>
     <Modal @showModal="showModal" v-if="show_modal">
 <!--      Как бы было классно вынести эту монотонную залупу в отдельный компонент, но это не реакт, я не знаю экспорты/импорты во вью....-->
-      <div class="flex flex-column">
-        <div>
-          <p>Название курса (снизу input)</p>
-          <input type="text">
-        </div>
-        <div>
-          <p>Описание курса(снизу input)</p>
-          <textarea name="" id="" cols="30" rows="10"></textarea>
-        </div>
-        <div>
-          <p>Преподаватель</p>
-          ДОЛЖЕН ПОДСТАВИТЬСЯ ТЫ
-        </div>
-        <div>
-          <p>Emoji</p>
-          Список emoji
-        </div>
-        <div>
-          <p>Количество часов(снизу input)</p>
-          <input type="text">
-        </div>
-        <button>Отправить</button>
+      <div class="adding_course">
+        <div class="adding_header">Добавление курса</div>
+        <input class="input_primary" placeholder="Название курса" type="text">
+        <textarea class="input_primary" placeholder="Описание курса" name="" id="" cols="30" rows="10"></textarea>
+        <div>Преподаватель:</div>
+        <input class="input_primary" placeholder="Эмодзи" type="text">
+        <input class="input_primary" placeholder="Kоличество часов" type="text">
+        <button class="btn_primary">Отправить</button>
       </div>
     </Modal>
-    <div class="flex flex-row justify-space-around">
+    <div class="about_block">
 
-      <div class="flex-column m-1 p-1 w-50">
+      <div class="about_me">
         <div class="card">
-          <div class="card-header">
+          <div class="card_header">
             Информация обо мне
           </div>
-          <div class="card-body">
-            <p>{{ teacher.last_name }} {{ teacher.first_name }} {{ teacher.patronymic }}, id: {{ teacher.id }}</p>
+          <div class="card_body">
+            <label for="">ФИО</label>
+            <p>{{ teacher.last_name }} {{ teacher.first_name }} {{ teacher.patronymic }} <span class="liryc">id: {{ teacher.id }}</span></p>
+            <label for="">Почта</label>
             <p>{{ teacher.email }}</p>
+            <label for="">Номер телефона</label>
             <p>{{ teacher.phone || "8 800 555 35 35" }}</p>
           </div>
         </div>
         <div></div>
       </div>
 
-      <div class="flex-column m-1 p-1 w-50">
+      <div class="about_me">
         <div class="card">
-          <div class="card-header flex flex-row justify-space-between">
+          <div class="card_header course_head">
             <p>Мои курсы</p>
-            <button @click="showModal">+</button>
+            <button class="plus" @click="showModal">+</button>
           </div>
-          <div class="card-body">
-            <div v-for="item in course" :key="item.id">
-              <div>{{ item.name }}</div>
-              <nuxt-link :to="'/course/'+item.id">Страница курса</nuxt-link>
-              <button @click="deleteCourse($event)" :data="item.id">Удалить</button>
-            </div>
+          <div v-for="item in course" :key="item.id" class="card_body">
+            
+              <label>{{ item.name }}</label>
+              <div class="card_course_item">
+                <nuxt-link :to="'/course/'+item.id">Страница курса</nuxt-link>
+                <button class="btn_primary btn_warning">Редактировать</button>
+                <button class="btn_primary btn_danger" @click="deleteCourse($event)" :data="item.id">Удалить</button>
+              </div>
+              
+           
           </div>
         </div>
       </div>
