@@ -111,12 +111,7 @@ export default {
         }
     },
     mounted(){
-        axios.get(`http://127.0.0.1:8000/api/course/${this.$route.params.id}/`).then((resp)=>{
-            this.course = resp.data[0];
-            this.kids = resp.data[0].children_of_courses;
-            console.log( resp.data[0])
-            // console.log(this.course.lessons_in_course.length==0)
-        });
+        this.reload();
 
     },
     components:{
@@ -125,6 +120,14 @@ export default {
         Modal2
     },
     methods:{
+        reload() {
+          axios.get(`http://127.0.0.1:8000/api/course/${this.$route.params.id}/`).then((resp)=>{
+            this.course = resp.data[0];
+            this.kids = resp.data[0].children_of_courses;
+            console.log( resp.data[0])
+            // console.log(this.course.lessons_in_course.length==0)
+          });
+        },
         showModal(id){
             this.show_modal=!this.show_modal;
             this.lessonId = id
@@ -173,7 +176,9 @@ export default {
           });
           let res = await data.json();
           console.log(res);
+          this.reload();
         }
+
     }
 }
 </script>
