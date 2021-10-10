@@ -48,3 +48,5 @@ class LessonsViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = LessonsSerializer
+
+    # def perform_create(self, serializer):
