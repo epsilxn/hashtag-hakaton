@@ -39,10 +39,8 @@
             </table>
           <button>Отправить</button>
         </Modal>
-        <Modal2
-        @showModal="showModal2"
-            v-if="show_modal2">
-            asdasdasd
+        <Modal2 @showModal="showModal2" v-if="show_modal2">
+
         </Modal2>
         <section class="course_view">
             <div class="view_header">
@@ -134,6 +132,11 @@ export default {
           });
           let res = await data.json();
           console.log(res);
+        },
+        createLesson() {
+          let body = {
+
+          }
         }
       // createAttendance() {
           // тут нужно в цикле реализовать логику по пингу на POST http://127.0.0.1:8000/api/att/
