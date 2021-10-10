@@ -1,8 +1,9 @@
 <template>
     <header>
         <div class="header">
-            <span class="violet">Gib</span>
+            <div><span class="violet">Gib</span>
             Courses</div>
+            </div>
     </header>
 </template>
 

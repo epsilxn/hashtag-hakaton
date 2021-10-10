@@ -18,19 +18,20 @@
         </div>
         <div class="more_time">
             <div class="date">
-                 Цена: {{lesson.price}} &nbsp;
+                Цена:
+                <span class="red"> 
+                  {{lesson.price}}р</span> &nbsp;
             </div>
             <div class="date">
-                 Длительность: {{lesson.duration}} &nbsp;
+                 
+                     Длительность:<span class="red"> {{lesson.duration.slice(1, -3)}}ч &nbsp;
+                     </span>
             </div>
             <div class="time">
                 {{lesson.time.slice(0, -3) }} &nbsp;
             </div>
             <div class="date">
                  {{lesson.date}} &nbsp;
-            </div>
-            <div class="duration">
-                {{lesson.duration}}
             </div>
         </div>
     </div>
