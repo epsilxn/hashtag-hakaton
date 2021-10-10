@@ -1,6 +1,7 @@
 from rest_framework import viewsets, permissions
 from rest_framework.views import APIView
-from .serializers import ParentSerializer
+from .serializers import *
+from .models import *
 from accounts.models import AdvancedUser
 
 
@@ -10,6 +11,14 @@ class ParentViewSet(viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = ParentSerializer
+
+
+class ChildViewSet(viewsets.ModelViewSet):
+    queryset = Child.objects.all()
+    permission_classes = [permissions.AllowAny]
+    serializer_class = ChildSerializer
+
+    # def create(self, request, *args, **kwargs):
 
 
 
