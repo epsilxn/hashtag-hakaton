@@ -40,7 +40,23 @@
           <button>Отправить</button>
         </Modal>
         <Modal2 @showModal="showModal2" v-if="show_modal2">
+          <div>
+            <label for="">Название урока</label>
+            <input type="text" v-model="lessonName">
 
+            <label for="">Краткое описание</label>
+            <input type="text" v-model="lessonDescription">
+
+            <label for="">Дата</label>
+            <input type="date" v-model="lessonDate">
+
+            <label for="">Время</label>
+            <input type="time" v-model="lessonTime">
+
+            <label for="">Информация</label>
+            <input type="text" v-model="lessonInformation">
+            <button @click="createLesson" class="btn btn_primary">Создать</button>
+          </div>
         </Modal2>
         <section class="course_view">
             <div class="view_header">
@@ -86,7 +102,12 @@ export default {
             show_modal2: false,
             lessonId: 0,
             lessons: [],
-            kids: []
+            kids: [],
+            lessonName: "",
+            lessonDescription: "",
+            lessonDate: "",
+            lessonTime: "",
+            lessonInformation: "",
         }
     },
     mounted(){
@@ -133,25 +154,26 @@ export default {
           let res = await data.json();
           console.log(res);
         },
-        createLesson() {
+        async createLesson() {
           let body = {
-
+            name: this.lessonName,
+            description: this.lessonDescription,
+            date: this.lessonDate,
+            time: `${this.lessonTime}:00`,
+            information: this.lessonInformation,
+            course: this.course.id
           }
+          console.log(this.lessonTime)
+          let data = await fetch("http://127.0.0.1:8000/api/lesson/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json;charset=utf-8"
+            },
+            body: JSON.stringify(body)
+          });
+          let res = await data.json();
+          console.log(res);
         }
-      // createAttendance() {
-          // тут нужно в цикле реализовать логику по пингу на POST http://127.0.0.1:8000/api/att/
-        // В цикле потому, что он не сможет обработать массив
-        // for (let i = 0; i < tbody.tr.length; i++) {
-        //     axios.post("http://127.0.0.1:8000/api/att/", {
-        //         нумерация начинается с 1
-        //         child: id ребёнка (1 td),
-        //         lesson: ласт id в td,
-        //         paid_confirmed_parent: td 5,
-        //         paid_confirmed_teacher: td 6,
-        //         attendance_confirmed: td 4
-        //     })
-        // }
-      // }
     }
 }
 </script>
