@@ -5,6 +5,7 @@ from .models import AdvancedUser
 
 
 class UserViewSet(viewsets.ModelViewSet):
+    """REST эндпоинты для таблицы AdvancedUser"""
     queryset = AdvancedUser.objects.all()
     permission_classes = [
         permissions.AllowAny

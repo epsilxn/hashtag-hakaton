@@ -170,9 +170,9 @@ export default {
             information: this.lessonInformation,
             course: this.course.id,
             duration: this.lessonDuration,
-            price: this.lessonPrice
+            price: this.lessonPrice++
           }
-          console.log(this.lessonTime)
+          console.log(body.price)
           let data = await fetch("http://127.0.0.1:8000/api/lesson/", {
             method: "POST",
             headers: {

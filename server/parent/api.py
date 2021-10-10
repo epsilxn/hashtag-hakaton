@@ -6,7 +6,6 @@ from accounts.models import AdvancedUser
 
 class ParentViewSet(viewsets.ModelViewSet):
     queryset = AdvancedUser.objects.filter(is_staff=False)
-
     permission_classes = [
         permissions.AllowAny
     ]

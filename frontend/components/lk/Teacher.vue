@@ -5,12 +5,11 @@
 <!--      Как бы было классно вынести эту монотонную залупу в отдельный компонент, но это не реакт, я не знаю экспорты/импорты во вью....-->
       <div class="adding_course">
         <div class="adding_header">Добавление курса</div>
-        <input class="input_primary" placeholder="Название курса" type="text">
-        <textarea class="input_primary" placeholder="Описание курса" name="" id="" cols="30" rows="10"></textarea>
-        <div>Преподаватель: Алиев Давид</div>
-        <input class="input_primary" placeholder="Эмодзи" type="text">
-        <input class="input_primary" placeholder="Kоличество часов" type="text">
-        <button class="btn_primary">Отправить</button>
+        <input class="input_primary" placeholder="Название курса" type="text" v-model="name">
+        <input class="input_primary" placeholder="Описание курса" v-model="description">
+        <input class="input_primary" placeholder="Эмодзи" type="text" v-model="emoji">
+        <input class="input_primary" placeholder="Количество часов" type="text" v-model="hours">
+        <button class="btn_primary" @click="createCourse">Создать</button>
       </div>
     </Modal>
     <div class="about_block">
@@ -46,6 +45,8 @@
                 <button class="btn_primary btn_warning">Редактировать</button>
                 <button class="btn_primary btn_danger" @click="deleteCourse($event)" :data="item.id">Удалить</button>
               </div>
+
+
           </div>
         </div>
       </div>
@@ -64,7 +65,11 @@ export default {
     return {
       course: "",
       teacher: "",
-      show_modal: false
+      show_modal: false,
+      hours: 10,
+      name: "",
+      description: "",
+      emoji: "😀"
     }
   },
   async mounted() {
@@ -73,7 +78,7 @@ export default {
   methods: {
     async reload(){
       let teacher = await (await fetch("http://127.0.0.1:8000/api/teacher/1/")).json();
-      let course = await (await fetch(`http://127.0.0.1:8000/api/course?id=2`)).json();
+      let course = await (await fetch(`http://127.0.0.1:8000/api/course?id=1`)).json();
       this.course = course;
       this.teacher = teacher;
     },
@@ -83,6 +88,26 @@ export default {
       // К кнопке "удалить" надо добавить event (или как это тут называется)
       axios.delete(`http://127.0.0.1:8000/api/course/${id}/`).then((res) => {})
       this.reload()
+    },
+    async createCourse() {
+      let body = {
+        name: this.name,
+        description: this.description,
+        teacher: this.teacher.id,
+        hours: this.hours,
+        emoji: "😀"
+      }
+      console.log(body);
+      let data = await fetch("http://127.0.0.1:8000/api/course/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8"
+        },
+        body: JSON.stringify(body)
+      });
+      let res = await data.json();
+      console.log(res);
+      await this.reload();
     },
     showModal() {
       this.show_modal = !this.show_modal;
