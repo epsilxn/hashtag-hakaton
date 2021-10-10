@@ -181,7 +181,7 @@ export default {
         parent_of_child: 2
       }).then((resp)=>{
         console.log(resp)
-        this.show_modal3=false
+        this.show_modal2=false
         this.mntd()
       })
       console.log(this.adding_child)

@@ -5,39 +5,34 @@
               <thead>
                 <tr>
                   <td>id</td>
-                  <td>Имя</td>
-                  <td>Фамилия</td>
+                  <td>id ребёнка</td>
                   <td>Посетил</td>
                   <td>Оплатил</td>
                   <td>Принял оплату</td>
-                  <td>Курс</td>
                   <td>Занятие</td>
                   <td>*</td>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(item, index) in course.children_of_courses" :key="item.id">
-                  <td class="our_id">{{item.id}}</td> <!---->
-                  <td>{{item.first_name}}</td>
-                  <td>{{item.last_name}}</td>
+                <tr v-for="(item, index) in lessons[lessonId-1].attendance_lessons" :key="item.id">
+                  <td class="our_id">{{item.id}}</td> <!-- -->
+                  <td class="our_child_id">{{item.child}}</td>
                   <td>
-                    <input type="checkbox" class="our_posetil">
+                    <input type="checkbox" class="our_posetil" :checked="item.attendance_confirmed">
                   </td>
                   <td>
-                    <input type="checkbox" class="our_oplatil">
+                    <input type="checkbox" class="our_oplatil" :checked="item.paid_confirmed_parent">
                   </td>
                   <td>
-                    <input type="checkbox" class="our_prinyal">
+                    <input type="checkbox" class="our_prinyal" :checked="item.paid_confirmed_teacher">
                   </td>
-                  <td>{{course.id}}</td>
                   <td class="our_urok">{{lessonId}}</td>
                   <td>
-                    <button class="btn btn-primary" @click="createAttendance(index)">Отправить</button>
+                    <button class="btn btn-primary" @click="updateAttendance(index)">Отправить</button>
                   </td>
                 </tr>
               </tbody>
             </table>
-          <button class="btn btn_primary">Отправить</button>
         </Modal>
         <Modal2 @showModal="showModal2" v-if="show_modal2">
             <div class="adding_course">
@@ -105,7 +100,10 @@ export default {
             lessonTime: "",
             lessonInformation: "",
             lessonDuration: '',
-            lessonPrice: ''
+            lessonPrice: '',
+            paid: false,
+            accept: false,
+            attend: false
         }
     },
     mounted(){
@@ -122,7 +120,8 @@ export default {
           axios.get(`http://127.0.0.1:8000/api/course/${this.$route.params.id}/`).then((resp)=>{
             this.course = resp.data[0];
             this.kids = resp.data[0].children_of_courses;
-            // console.log(this.course.lessons_in_course.length==0)
+            this.lessons = resp.data[0].lessons_in_course;
+            console.log(resp.data[0].children_of_courses)
           });
         },
         showModal(id){
@@ -132,31 +131,25 @@ export default {
         showModal2(){
             this.show_modal2=!this.show_modal2;
         },
-        /**
-         * создание записи в таблице посещаемости
-         * @param {number} id - id пользователя
-         */
-        async createAttendance(id) {
+
+        async updateAttendance(id) {
+          console.log(document.querySelectorAll(".our_id")[id])
           let our_id = document.querySelectorAll(".our_id")[id].innerHTML;
-          let our_posetil = document.querySelectorAll(".our_posetil")[id].checked;
-          let our_oplatil = document.querySelectorAll(".our_oplatil")[id].checked;
-          let our_prinyal = document.querySelectorAll(".our_prinyal")[id].checked;
+          let attend = document.querySelectorAll(".our_posetil")[id].checked;
+          let paid = document.querySelectorAll(".our_oplatil")[id].checked;
+          let accept = document.querySelectorAll(".our_prinyal")[id].checked;
           let our_urok = document.querySelectorAll(".our_urok")[id].innerHTML;
-          let data = await fetch("http://127.0.0.1:8000/api/att/", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json;charset=utf-8"
-            },
-            body: JSON.stringify({
-              paid_confirmed_parent: our_oplatil,
-              paid_confirmed_teacher: our_prinyal,
-              attendance_confirmed: our_posetil,
-              lesson: our_urok,
-              child: our_id
-            })
-          });
-          let res = await data.json();
-          console.log(res);
+          let our_child_id = document.querySelectorAll(".our_child_id")[id].innerHTML;
+          axios.put(`http://127.0.0.1:8000/api/att/${our_id}/`, {
+            // id: our_id,
+            paid_confirmed_parent: paid,
+            paid_confirmed_teacher: accept,
+            attendance_confirmed: attend,
+            lesson: our_urok,
+            child: our_child_id
+          }).then((res) => {
+            console.log(res)
+          })
         },
         /**
          * создание записи в таблице занятий
@@ -172,7 +165,6 @@ export default {
             duration: this.lessonDuration,
             price: this.lessonPrice++
           }
-          console.log(body.price)
           let data = await fetch("http://127.0.0.1:8000/api/lesson/", {
             method: "POST",
             headers: {
@@ -181,7 +173,6 @@ export default {
             body: JSON.stringify(body)
           });
           let res = await data.json();
-          console.log(res);
           this.reload();
         }
 

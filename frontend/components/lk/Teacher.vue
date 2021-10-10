@@ -46,7 +46,6 @@
                 <button class="btn_primary btn_danger" @click="deleteCourse($event)" :data="item.id">Удалить</button>
               </div>
 
-
           </div>
         </div>
       </div>
