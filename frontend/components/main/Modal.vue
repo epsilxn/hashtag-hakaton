@@ -19,10 +19,6 @@ export default {
           type: Number,
           default: 1
         },
-        attendanceArray: {
-          type: Array,
-          default: []
-        }
     },
     methods:{
         close() {

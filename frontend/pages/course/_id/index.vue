@@ -1,7 +1,7 @@
 <template>
     <div class="page_container">
         <Modal @showModal="showModal" v-if="show_modal" :id="this.lessonId">
-            <table border>
+            <table border class="table table-striped">
               <thead>
                 <tr>
                   <td>id</td>
@@ -16,21 +16,34 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in course.children_of_courses" :key="item.id">
-                  <td>{{item.id}}</td>
+                <tr v-for="(item, index) in course.children_of_courses" :key="item.id">
+                  <td class="our_id">{{item.id}}</td> <!---->
                   <td>{{item.first_name}}</td>
                   <td>{{item.last_name}}</td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
-                  <td><input type="checkbox"></td>
+                  <td>
+                    <input type="checkbox" class="our_posetil">
+                  </td>
+                  <td>
+                    <input type="checkbox" class="our_oplatil">
+                  </td>
+                  <td>
+                    <input type="checkbox" class="our_prinyal">
+                  </td>
                   <td>{{course.id}}</td>
-                  <td>{{lessonId}}</td>
-                  <td><button class="btn btn_primary">Отправить</button></td>
+                  <td class="our_urok">{{lessonId}}</td>
+                  <td>
+                    <button class="btn btn-primary" @click="createAttendance(index)">Отправить</button>
+                  </td>
                 </tr>
               </tbody>
             </table>
           <button>Отправить</button>
         </Modal>
+        <Modal2
+        @showModal="showModal2"
+            v-if="show_modal2">
+            asdasdasd
+        </Modal2>
         <section class="course_view">
             <div class="view_header">
                 <div class="view_emoji">{{course.emoji}}</div>
@@ -54,6 +67,9 @@
                     :key="ls.id"
                     :idx="index+1"
                     :lesson="ls"/>
+                    <div @click="showModal2" v-if="$store.getters.getStaff" class="plus">
+                        +
+                    </div>
             </div>
         </section>
     </div>
@@ -63,11 +79,13 @@
 import axios from 'axios'
 import Lesson from '@/components/course/Lesson'
 import Modal from '@/components/main/Modal'
+import Modal2 from '@/components/main/Modal'
 export default {
     data(){
         return{
             course:{},
             show_modal: false,
+            show_modal2: false,
             lessonId: 0,
             lessons: [],
             kids: []
@@ -84,14 +102,40 @@ export default {
     },
     components:{
         Lesson,
-        Modal
+        Modal,
+        Modal2
     },
     methods:{
         showModal(id){
             this.show_modal=!this.show_modal;
             this.lessonId = id
         },
-      createAttendance() {
+        showModal2(){
+            this.show_modal2=!this.show_modal2;
+        },
+        async createAttendance(id) {
+          let our_id = document.querySelectorAll(".our_id")[id].innerHTML;
+          let our_posetil = document.querySelectorAll(".our_posetil")[id].checked;
+          let our_oplatil = document.querySelectorAll(".our_oplatil")[id].checked;
+          let our_prinyal = document.querySelectorAll(".our_prinyal")[id].checked;
+          let our_urok = document.querySelectorAll(".our_urok")[id].innerHTML;
+          let data = await fetch("http://127.0.0.1:8000/api/att/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json;charset=utf-8"
+            },
+            body: JSON.stringify({
+              paid_confirmed_parent: our_oplatil,
+              paid_confirmed_teacher: our_prinyal,
+              attendance_confirmed: our_posetil,
+              lesson: our_urok,
+              child: our_id
+            })
+          });
+          let res = await data.json();
+          console.log(res);
+        }
+      // createAttendance() {
           // тут нужно в цикле реализовать логику по пингу на POST http://127.0.0.1:8000/api/att/
         // В цикле потому, что он не сможет обработать массив
         // for (let i = 0; i < tbody.tr.length; i++) {
@@ -104,7 +148,11 @@ export default {
         //         attendance_confirmed: td 4
         //     })
         // }
-      }
+      // }
     }
 }
 </script>
+
+<style src="~/static/css/bootstrap.css">
+
+</style>
