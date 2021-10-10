@@ -33,14 +33,12 @@ export default {
     }
   },
     mounted() {
-    // Заменить на динамику, всё работает
       axios.get("http://127.0.0.1:8000/api/parent/2/").then((resp)=>{
         this.parent = resp.data
         
         for (let item of resp.data.children_of_parent){
           this.ids.push(item.courses)
         }
-        console.log(this.ids)
         let to_push = []
         for (let i = 0; i < this.ids.length; i++){
           let to_push_inside = []

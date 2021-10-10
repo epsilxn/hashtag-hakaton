@@ -1,8 +1,13 @@
 <template>
     <div class="page_container">
         <div class="main_page">
-            <!-- <Parent/> -->
-            <Teacher/>
+            <Parent v-if="!is_staff"/>
+            <Teacher v-else/>
+            <nuxt-link :to="'/auth'">
+              <div class="red">
+                выйти
+              </div>
+            </nuxt-link>
         </div>
     </div>
 </template>
@@ -16,7 +21,8 @@ export default {
   name: "parent",
   data() {
     return{
-      Parent: {}
+      Parent: {},
+      is_staff: null
     }
   },
   components: {
@@ -24,9 +30,11 @@ export default {
     Teacher
   },
   mounted() {
-    axios.get("http://127.0.0.1:8000/api/parent").then((res)=>{
-      console.log('parent',res)
-    });  
+    // axios.get("http://127.0.0.1:8000/api/parent").then((res)=>{
+    //   console.log('parent',res)
+    // });  
+    this.is_staff = this.$store.getters.getStaff
+    console.log('staff',this.is_staff)
   }
 }
 </script>

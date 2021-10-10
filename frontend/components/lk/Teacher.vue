@@ -76,14 +76,11 @@ export default {
     async reload(){
       let teacher = await (await fetch("http://127.0.0.1:8000/api/teacher/1/")).json();
       let course = await (await fetch(`http://127.0.0.1:8000/api/course?id=2`)).json();
-      console.log(course);
-      console.log(teacher);
       this.course = course;
       this.teacher = teacher;
     },
     deleteCourse(event) {
       let id = event.target.attributes.data.value;
-      console.log('target', event.target.attributes.data.value)
       // с ивента подцепи
       // К кнопке "удалить" надо добавить event (или как это тут называется)
       axios.delete(`http://127.0.0.1:8000/api/course/${id}/`).then((res) => {})

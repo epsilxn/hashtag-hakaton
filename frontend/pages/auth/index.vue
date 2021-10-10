@@ -43,7 +43,7 @@ export default {
                                 $nuxt.$store.dispatch('setStaff', resp.data.is_staff)
                                 document.cookie = `token=${String(this.$store.state.token)}`;
                                 console.log(document.cookie)
-                                this.$router.push('lk/')
+                                this.$router.push('/lk')
                             })
                         })
                 })

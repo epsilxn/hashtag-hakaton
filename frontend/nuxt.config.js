@@ -47,7 +47,13 @@ export default {
     ],
 
     // Modules: https://go.nuxtjs.dev/config-modules
-    modules: [],
+    modules: [
+        // Simple usage
+        'cookie-universal-nuxt',
+
+        // With options
+        ['cookie-universal-nuxt', { alias: 'cookiz' }],
+    ],
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {}

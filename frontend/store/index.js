@@ -23,3 +23,12 @@ export const mutations = {
         console.log(state.is_staff)
     }
 }
+
+export const getters = {
+    getToken(state) {
+        return state.token
+    },
+    getStaff(state) {
+        return state.is_staff
+    },
+}

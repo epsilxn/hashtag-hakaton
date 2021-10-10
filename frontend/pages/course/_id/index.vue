@@ -29,6 +29,11 @@
             </table>
           <button></button>
         </Modal>
+        <Modal2
+        @showModal="showModal2"
+            v-if="show_modal2">
+            asdasdasd
+        </Modal2>
         <section class="course_view">
             <div class="view_header">
                 <div class="view_emoji">{{course.emoji}}</div>
@@ -52,6 +57,9 @@
                     :key="ls.id"
                     :idx="index+1"
                     :lesson="ls"/>
+                    <div @click="showModal2" v-if="$store.getters.getStaff" class="plus">
+                        +
+                    </div>
             </div>
         </section>
     </div>
@@ -61,11 +69,13 @@
 import axios from 'axios'
 import Lesson from '@/components/course/Lesson'
 import Modal from '@/components/main/Modal'
+import Modal2 from '@/components/main/Modal'
 export default {
     data(){
         return{
             course:{},
             show_modal: false,
+            show_modal2: false,
             lessonId: 0,
             lessons: []
         }
@@ -80,12 +90,16 @@ export default {
     },
     components:{
         Lesson,
-        Modal
+        Modal,
+        Modal2
     },
     methods:{
         showModal(id){
             this.show_modal=!this.show_modal;
             this.lessonId = id
+        },
+        showModal2(){
+            this.show_modal2=!this.show_modal2;
         },
       createAttendance() {
           // тут нужно в цикле реализовать логику по пингу на POST http://127.0.0.1:8000/api/att/
